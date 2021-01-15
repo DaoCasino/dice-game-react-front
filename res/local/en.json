@@ -1,0 +1,12 @@
+{
+  "spinButton": "ROLL",
+  "betMaxButton": "MAX\nROLL",
+  "payoutOnWin": "PAYOUT ON WIN",
+  "betAmount": "BET AMOUNT",
+  "decreaseBetButton": "1 / 2",
+  "increaseBetButton": "2x",
+  "rollOver": "ROLL OVER",
+  "payout": "PAYOUT",
+  "winChance": "WIN CHANCE",
+  "rollJournal": "You last bets will be displayed here"
+}
