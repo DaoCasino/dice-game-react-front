@@ -1,0 +1,7 @@
+**/.git
+Jenkinsfile
+Dockerfile
+/res_unoptimized
+/node_modules
+/dist
+/build
