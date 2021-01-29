@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { tr, UIContainer, UIText, UITextAlign, Utils } from 'dc-react-gamengine'
+import { tr, UIContainer, UIText, UITextAlign, Utils } from '@daocasino/dc-react-gamengine'
 import { TextInputCurrency } from './TextInputCurrency'
 
 const BetAmount = (props): JSX.Element => {

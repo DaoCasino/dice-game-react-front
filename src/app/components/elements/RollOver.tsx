@@ -3,7 +3,7 @@ import * as PIXI from 'pixi.js'
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { Engine, tr, UIContainer, UISprite, UIText, UITextAlign, Utils } from 'dc-react-gamengine'
+import { Engine, tr, UIContainer, UISprite, UIText, UITextAlign, Utils } from '@daocasino/dc-react-gamengine'
 
 const RollOver = (props): JSX.Element => {
   const { chance: value } = props

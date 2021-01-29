@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { UIContainer } from 'dc-react-gamengine'
+import { UIContainer } from '@daocasino/dc-react-gamengine'
 import RollOver from '../../elements/RollOver'
 import Payout from '../../elements/Payout'
 import WinChance from '../../elements/WinChance'

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { tr, UIContainer, UIRectangle } from 'dc-react-gamengine'
+import { tr, UIContainer, UIRectangle } from '@daocasino/dc-react-gamengine'
 
 import { PlayButton } from '../../elements/PlayButton'
 import { BetMaxButton } from '../../elements/BetMaxButton'

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { tr, UIButton, UITextAlign } from 'dc-react-gamengine'
+import { tr, UIButton, UITextAlign } from '@daocasino/dc-react-gamengine'
 
 export const PlayButton = (props): JSX.Element => {
   return (

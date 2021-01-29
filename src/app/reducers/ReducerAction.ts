@@ -1,4 +1,4 @@
-import { Engine } from 'dc-react-gamengine'
+import { Engine } from '@daocasino/dc-react-gamengine'
 
 export enum ReducerAction {
   SET_CHANCE = 'ReducerAction.SET_CHANCE',

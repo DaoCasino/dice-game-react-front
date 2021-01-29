@@ -16,7 +16,7 @@
     "build_res": "build_res ./res_unoptimized ./res",
     "build": "cross-env NODE_ENV='production' BABEL_ENV='production' GENERATE_SOURCEMAP='false' webpack",
     "predeploy": "npm run build",
-    "check_build": "npx serve ./dist"
+    "check_build": "npx serve ./build"
   },
   "keywords": [],
   "author": "whilesocold@gmail.com",
@@ -34,7 +34,7 @@
     "react-redux": "^7.2.2",
     "redux": "^4.0.5",
     "typescript": "^4.1.3",
-    "@daocasino/dc-react-gamengine": "^1.0.0"
+    "@daocasino/dc-react-gamengine": "^1.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { tr, UIContainer, UIList, UIRectangle, UIText, UITextAlign } from 'dc-react-gamengine'
+import { tr, UIContainer, UIList, UIRectangle, UIText, UITextAlign } from '@daocasino/dc-react-gamengine'
 import { TripleSelectButton } from '../../elements/TripleSelectButton'
 import { TextInput } from '../../elements/TextInput'
 import { TextInputCurrency } from '../../elements/TextInputCurrency'

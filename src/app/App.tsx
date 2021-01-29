@@ -1,6 +1,6 @@
 import EventEmitter from 'eventemitter3'
 
-import { Engine, Localization, ResourceManager, ResourceManagerEvent } from 'dc-react-gamengine'
+import { Engine, Localization, ResourceManager, ResourceManagerEvent } from '@daocasino/dc-react-gamengine'
 
 import React from 'react'
 import * as process from 'process'

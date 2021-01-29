@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { tr, UIContainer, UIRectangle, UIText, UITextAlign, Utils } from 'dc-react-gamengine'
+import { tr, UIContainer, UIRectangle, UIText, UITextAlign, Utils } from '@daocasino/dc-react-gamengine'
 import { DiceMath } from '../../math/DiceMath'
 
 const PayoutOnWin = (props): JSX.Element => {

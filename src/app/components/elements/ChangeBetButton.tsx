@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { UIButton, UITextAlign } from 'dc-react-gamengine'
+import { UIButton, UITextAlign } from '@daocasino/dc-react-gamengine'
 
 export const ChangeBetButton = (props): JSX.Element => {
   return (

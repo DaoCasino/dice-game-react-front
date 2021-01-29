@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { tr, UIContainer, UIText, UITextAlign } from 'dc-react-gamengine'
+import { tr, UIContainer, UIText, UITextAlign } from '@daocasino/dc-react-gamengine'
 
 const RollJournal = (props): JSX.Element => {
   const {x, y} = props

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Engine, UIContainer, UIRectangle, UISprite, UITextAlign, UITextInput, Utils } from 'dc-react-gamengine'
+import { Engine, UIContainer, UIRectangle, UISprite, UITextAlign, UITextInput, Utils } from '@daocasino/dc-react-gamengine'
 
 export class TextInputCurrency extends Component<any, any> {
   render() {

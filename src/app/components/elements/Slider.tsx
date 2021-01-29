@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import { Engine, UIContainer, UIRectangle, UIText, UITextAlign, UITilingSprite, Utils } from 'dc-react-gamengine'
+import { Engine, UIContainer, UIRectangle, UIText, UITextAlign, UITilingSprite, Utils } from '@daocasino/dc-react-gamengine'
 
 export class SliderStep extends Component<any, any> {
   static propTypes = {

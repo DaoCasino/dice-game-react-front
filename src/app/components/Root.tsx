@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { isMobile } from 'mobile-device-detect'
 
-import { Engine, UIContainer, UIRectangle } from 'dc-react-gamengine'
+import { Engine, UIContainer, UIRectangle } from '@daocasino/dc-react-gamengine'
 
 import BettingContainerDesktop from './containers/desktop/BettingContainer'
 import SliderContainerDesktop from './containers/desktop/SliderContainer'

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { tr, UIButton, UIContainer, UIRectangle, UIText, UITextAlign } from 'dc-react-gamengine'
+import { tr, UIButton, UIContainer, UIRectangle, UIText, UITextAlign } from '@daocasino/dc-react-gamengine'
 
 const createButton = (props: any) => {
   return <UIButton
