@@ -33,7 +33,8 @@
     "react-pixi-fiber": "^0.14.1",
     "react-redux": "^7.2.2",
     "redux": "^4.0.5",
-    "typescript": "^4.1.3"
+    "typescript": "^4.1.3",
+    "dc-react-gamengine": "^0.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
