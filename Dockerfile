@@ -9,9 +9,11 @@ COPY yarn.lock ./
 RUN yarn install
 
 COPY ./ ./
+ENV GAME_IS_MOCK=$mock
+ENV BACKEND_ADDR=$backendAddr
 ENV NODE_OPTIONS="--max-old-space-size=2048"
 
-RUN yarn build
+RUN echo "=> build mock: $mock, backendAddr: $backendAddr" && yarn build
 
 FROM nginx:alpine
 WORKDIR /usr/share/nginx/html
