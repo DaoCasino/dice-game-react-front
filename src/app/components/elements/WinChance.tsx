@@ -1,8 +1,14 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
 import { tr, UIContainer, UIText, UITextAlign } from 'dc-react-gamengine'
+import { DiceMath } from '../../math/DiceMath'
 
-export const WinChance = (props): JSX.Element => {
+const WinChance = (props): JSX.Element => {
+  const { chance } = props
+
+  const value = parseInt((100 - DiceMath.getWinChance(chance) * 100).toFixed(0))
+
   return (
     <UIContainer x={props.x} y={props.y}>
       <UIText
@@ -19,7 +25,7 @@ export const WinChance = (props): JSX.Element => {
       <UIText
         y={34}
         anchor={{ x: 0.5, y: 0.5 }}
-        text={'x' + props.value}
+        text={'x' + value}
         style={{
           fill: 0xffffff,
           fontFamily: 'Rajdhani-fnt',
@@ -30,3 +36,13 @@ export const WinChance = (props): JSX.Element => {
     </UIContainer>
   )
 }
+
+const mapState = (state) => {
+  const { chance } = state
+
+  return {
+    chance,
+  }
+}
+
+export default connect(mapState, null)(WinChance)
