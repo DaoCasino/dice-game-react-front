@@ -1,11 +1,12 @@
 import * as PIXI from 'pixi.js'
 
 import React from 'react'
+import { connect } from 'react-redux'
 
 import { Engine, tr, UIContainer, UISprite, UIText, UITextAlign, Utils } from 'dc-react-gamengine'
 
-export const RollOver = (props): JSX.Element => {
-  const texture = Engine.instance.getResourceManager().getTexture('down_png')
+const RollOver = (props): JSX.Element => {
+  const { chance: value } = props
 
   const valueStyle = {
     fill: 0xffffff,
@@ -13,9 +14,10 @@ export const RollOver = (props): JSX.Element => {
     fontSize: 20,
     align: UITextAlign.Right,
   }
-  const valueText = Utils.formatCurrency(props.value)
+  const valueText = Utils.formatCurrency(value)
   const valueWidth = PIXI.TextMetrics.measureText(valueText, new PIXI.TextStyle(valueStyle)).width
 
+  const texture = Engine.instance.getResourceManager().getTexture('down_png')
   const totalWidth = valueWidth + texture.width
 
   return (
@@ -47,3 +49,13 @@ export const RollOver = (props): JSX.Element => {
     </UIContainer>
   )
 }
+
+const mapState = (state) => {
+  const { chance } = state
+
+  return {
+    chance,
+  }
+}
+
+export default connect(mapState, null)(RollOver)

@@ -1,26 +1,24 @@
 import React, { Component } from 'react'
-
-import { UIContainer } from 'dc-react-gamengine'
-import { RollOver } from '../elements/RollOver'
-import { Payout } from '../elements/Payout'
-import { WinChance } from '../elements/WinChance'
-import { Slider } from '../elements/Slider'
 import { connect } from 'react-redux'
 
-class SliderContainer extends Component<any, any> {
-  constructor(props: any) {
-    super(props)
-  }
+import { UIContainer } from 'dc-react-gamengine'
+import RollOver from '../../elements/RollOver'
+import Payout from '../../elements/Payout'
+import WinChance from '../../elements/WinChance'
+import { Slider } from '../../elements/Slider'
 
+import { setChanceAction } from '../../../reducers/ReducerAction'
+
+class SliderContainer extends Component<any, any> {
   render(): JSX.Element {
-    const { x, y, width, height, probability } = this.props
+    const { x, y, width, height, chance, setChanceAction } = this.props
 
     const margin = 14
-    const totalWidth = width - margin * 3.5
+    const totalWidth = width// - margin * 3.5
 
     const sliderWidth = totalWidth
 
-    const yIndicatorsPercent = 55
+    const yIndicatorsPercent = 65
     const yIndicators = height * yIndicatorsPercent / 100
 
     return (
@@ -32,11 +30,11 @@ class SliderContainer extends Component<any, any> {
           height={26}
           min={1}
           max={99}
-          value={probability}
+          value={chance}
           steps={5}
           showSteps={true}
           stepping={true}
-          onChangeValue={value => console.log(value)}
+          onChangeValue={value => setChanceAction(value)}
         />
         <RollOver
           x={totalWidth * 0.25}
@@ -58,9 +56,12 @@ class SliderContainer extends Component<any, any> {
   }
 }
 
-const mapState = state => {
+const mapState = (state) => {
+  const { chance } = state
+
   return {
-    probability: state.probability,
+    chance,
+    setChanceAction,
   }
 }
 

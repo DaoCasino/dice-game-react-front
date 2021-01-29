@@ -34,7 +34,7 @@ export class App extends EventEmitter {
     console.log('App::init() -', props)
 
     await this.initEngine({
-      root: document.getElementById('root'),
+      view: document.getElementById('canvas'),
       backgroundColor: 0x0E1037,
       resolution: window.devicePixelRatio,
       resizeTo: window,
@@ -71,10 +71,15 @@ export class App extends EventEmitter {
   }
 
   private async initLocal(): Promise<void> {
+    const url = new URL(window.location.href)
+
+    url.pathname += 'res/local/'
+    url.search = ''
+
     try {
       await Localization.init(
         'en',
-        'http://localhost:8080/res/local/{{lng}}.json',
+        url.toString() + '{{lng}}.json',
       )
     } catch (e) {
       console.error('initLocal', e)

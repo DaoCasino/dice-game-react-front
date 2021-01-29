@@ -1,16 +1,23 @@
 import React, { Component } from 'react'
 import { isMobile } from 'mobile-device-detect'
 
-import { UIContainer, UIRectangle } from 'dc-react-gamengine'
-import BettingContainer from './containers/BettingContainer'
-import SliderContainer from './containers/SliderContainer'
-import AutobetContainer from './containers/AutobetContainer'
+import { Engine, UIContainer, UIRectangle } from 'dc-react-gamengine'
+
+import BettingContainerDesktop from './containers/desktop/BettingContainer'
+import SliderContainerDesktop from './containers/desktop/SliderContainer'
+import AutobetContainerDesktop from './containers/desktop/AutobetContainer'
+
+import BettingContainerMobile from './containers/mobile/BettingContainer'
 
 export default class Root extends Component<any, any> {
   state = { width: 0, height: 0 }
 
   updateDimensions = (): void => {
-    this.setState({ width: window.innerWidth, height: window.innerHeight })
+    const width = Engine.instance.getRenderer().width
+    const height = Engine.instance.getRenderer().height
+    const resolution = Engine.instance.getRenderer().resolution
+
+    this.setState({ width: width / resolution, height: height / resolution })
   }
 
   componentDidMount(): void {
@@ -24,8 +31,8 @@ export default class Root extends Component<any, any> {
   }
 
   getContainersDesktop(width: number, height: number): any {
-    const sliderPositionPercent = { x: 0.35, y: 0 }
-    const sliderSizePercent = { x: 0.65, y: 0.50 }
+    const sliderPositionPercent = { x: 0.325, y: 0 }
+    const sliderSizePercent = { x: 0.55, y: 0.50 }
 
     const bettingPositionPercent = { x: 0, y: 0.50 }
     const bettingSizePercent = { x: 0.65, y: 0.50 }
@@ -36,19 +43,19 @@ export default class Root extends Component<any, any> {
 
     return (
       <UIContainer>
-        <BettingContainer
+        <BettingContainerDesktop
           x={width * bettingPositionPercent.x}
           y={height * bettingPositionPercent.y}
           width={width * bettingSizePercent.x}
           height={height * bettingSizePercent.y}
         />
-        <SliderContainer
+        <SliderContainerDesktop
           x={width * sliderPositionPercent.x - width * sliderSizePercent.x / 2}
           y={height * sliderPositionPercent.y}
           width={width * sliderSizePercent.x}
           height={height * sliderSizePercent.y}
         />
-        <AutobetContainer
+        <AutobetContainerDesktop
           x={width * autobetPositionPercent.x + autobetLeftMargin}
           y={height * autobetPositionPercent.y}
           width={width * autobetSizePercent.x - autobetLeftMargin}
@@ -59,30 +66,22 @@ export default class Root extends Component<any, any> {
   }
 
   getContainersMobile(width: number, height: number): any {
-    const sliderPositionPercent = { x: 0, y: 0 }
-    const sliderSizePercent = { x: 1, y: 0.31 }
+    const sliderPositionPercent = { x: 0.5, y: 0 }
+    const sliderSizePercent = { x: 0.9, y: 0.35 }
 
-    const bettingPositionPercent = { x: 0, y: 0.31 }
-    const bettingSizePercent = { x: 1, y: 0.69 }
-
-    // iPhone 5 + SE
-    if (height <= 568) {
-      sliderSizePercent.y = 0.28
-
-      bettingPositionPercent.y = 0.28
-      bettingSizePercent.y = 0.72
-    }
+    const bettingPositionPercent = { x: 0, y: 0.35 }
+    const bettingSizePercent = { x: 1, y: 0.65 }
 
     return (
       <UIContainer>
-        <BettingContainer
+        <BettingContainerMobile
           x={width * bettingPositionPercent.x}
           y={height * bettingPositionPercent.y}
           width={width * bettingSizePercent.x}
           height={height * bettingSizePercent.y}
         />
-        <SliderContainer
-          x={width * sliderPositionPercent.x}
+        <SliderContainerDesktop
+          x={width * sliderPositionPercent.x - width * sliderSizePercent.x / 2}
           y={height * sliderPositionPercent.y}
           width={width * sliderSizePercent.x}
           height={height * sliderSizePercent.y}

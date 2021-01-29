@@ -8,5 +8,13 @@
   "rollOver": "ROLL OVER",
   "payout": "PAYOUT",
   "winChance": "WIN CHANCE",
-  "rollJournal": "You last bets will be displayed here"
+  "rollJournal": "You last bets will be displayed here",
+  "autobetMode": "Autobet Mode",
+  "onWin": "ON WIN",
+  "onLose": "ON LOSS",
+  "stopOnLose": "STOP ON LOSS",
+  "stopOnProfit": "STOP ON PROFIT",
+  "reset": "RESET",
+  "increaseBy": "INCREASE BY",
+  "decreaseBy": "DECREASE BY"
 }

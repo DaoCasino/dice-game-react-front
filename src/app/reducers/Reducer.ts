@@ -1,8 +1,8 @@
 import { ReducerAction } from './ReducerAction'
 
 export const initialState = {
-  probability: 50,
-  bet: 1,
+  chance: 50,
+  bet: 10,
   betLimits: { min: 0, max: 0 },
   balance: 0,
 }
@@ -10,9 +10,14 @@ export const initialState = {
 export const reducer = (state = initialState, action) => {
   const payload = action.payload
 
-  console.log(action)
-
   switch (action.type) {
+    case ReducerAction.SET_CHANCE: {
+      return {
+        ...state,
+        chance: payload,
+      }
+    }
+
     case ReducerAction.SET_BALANCE: {
       return {
         ...state,

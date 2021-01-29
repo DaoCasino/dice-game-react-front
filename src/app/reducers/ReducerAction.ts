@@ -1,4 +1,7 @@
+import { Engine } from 'dc-react-gamengine'
+
 export enum ReducerAction {
+  SET_CHANCE = 'ReducerAction.SET_CHANCE',
   SET_BALANCE = 'ReducerAction.SET_BALANCE',
   SET_BET_LIMITS = 'ReducerAction.SET_BET_LIMITS',
   BET_MULTIPLY = 'ReducerAction.BET_MULTIPLY',
@@ -6,22 +9,26 @@ export enum ReducerAction {
   BET_INPUT = 'ReducerAction.BET_INPUT',
 }
 
-export const setBalanceAction = (store) => {
-  store.dispatch({ type: ReducerAction.SET_BALANCE })
+export const setChanceAction = (payload) => {
+  Engine.instance.getStore().dispatch({ type: ReducerAction.SET_CHANCE, payload: payload })
 }
 
-export const setBetLimitsAction = (store) => {
-  store.dispatch({ type: ReducerAction.SET_BET_LIMITS })
+export const setBalanceAction = (payload) => {
+  Engine.instance.getStore().dispatch({ type: ReducerAction.SET_BALANCE, payload: payload })
 }
 
-export const betMultiplyAction = (store) => {
-  store.dispatch({ type: ReducerAction.BET_MULTIPLY })
+export const setBetLimitsAction = (payload) => {
+  Engine.instance.getStore().dispatch({ type: ReducerAction.SET_BET_LIMITS, payload: payload })
 }
 
-export const betDivideAction = (store) => {
-  store.dispatch({ type: ReducerAction.BET_DIVIDE })
+export const betMultiplyAction = (payload) => {
+  Engine.instance.getStore().dispatch({ type: ReducerAction.BET_MULTIPLY, payload: payload })
 }
 
-export const betInputAction = (store) => {
-  store.dispatch({ type: ReducerAction.BET_INPUT })
+export const betDivideAction = (payload) => {
+  Engine.instance.getStore().dispatch({ type: ReducerAction.BET_DIVIDE, payload: payload })
+}
+
+export const betInputAction = (payload) => {
+  Engine.instance.getStore().dispatch({ type: ReducerAction.BET_INPUT, payload: payload })
 }

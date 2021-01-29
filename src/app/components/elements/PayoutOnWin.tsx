@@ -1,10 +1,16 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
 import { tr, UIContainer, UIRectangle, UIText, UITextAlign, Utils } from 'dc-react-gamengine'
+import { DiceMath } from '../../math/DiceMath'
 
-export const PayoutOnWin = (props): JSX.Element => {
+const PayoutOnWin = (props): JSX.Element => {
+  const { bet, chance } = props
+
+  const value = DiceMath.getPayoutOnWin(bet, chance)
+
   return (
-    <UIContainer x={props.x} y={props.y} interactive={true} buttonMode={true}>
+    <UIContainer x={props.x} y={props.y}>
       <UIRectangle
         width={props.width}
         height={props.height}
@@ -29,7 +35,7 @@ export const PayoutOnWin = (props): JSX.Element => {
         x={props.width - 15}
         y={props.height / 2}
         anchor={{ x: 1, y: 0.5 }}
-        text={Utils.formatCurrency(props.value)}
+        text={Utils.formatCurrency(value)}
         style={{
           fill: 0xffffff,
           fontFamily: 'Rajdhani-fnt',
@@ -40,3 +46,14 @@ export const PayoutOnWin = (props): JSX.Element => {
     </UIContainer>
   )
 }
+
+const mapState = (state) => {
+  const { bet, chance } = state
+
+  return {
+    bet,
+    chance,
+  }
+}
+
+export default connect(mapState, null)(PayoutOnWin)
