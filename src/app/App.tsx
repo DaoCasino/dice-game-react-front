@@ -3,7 +3,6 @@ import EventEmitter from 'eventemitter3'
 import { Engine, Localization, ResourceManager, ResourceManagerEvent } from '@daocasino/dc-react-gamengine'
 
 import React from 'react'
-import * as process from 'process'
 
 import { ResourcesConfig } from './Resources'
 import { initialState, reducer } from './reducers/Reducer'
@@ -73,7 +72,7 @@ export class App extends EventEmitter {
   private async initLocal(): Promise<void> {
     const url = new URL(window.location.href)
 
-    url.pathname += 'res/local/'
+    url.pathname += process.env.NODE_ENV === 'development' ? './public/local/' : './local/'
     url.search = ''
 
     try {

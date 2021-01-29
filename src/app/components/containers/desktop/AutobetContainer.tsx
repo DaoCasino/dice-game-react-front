@@ -7,51 +7,6 @@ import { TextInput } from '../../elements/TextInput'
 import { TextInputCurrency } from '../../elements/TextInputCurrency'
 
 class AutobetContainer extends Component<any, any> {
-  getOnLoseElement() {
-    return <UIText
-      key={'onLoseLabel'}
-      anchor={{ x: 0, y: 0 }}
-      alpha={0.4}
-      text={tr('onLose')}
-      style={{
-        fill: 0xffffff,
-        fontFamily: 'Rajdhani-fnt',
-        fontSize: 16,
-        align: UITextAlign.Left,
-      }}
-    />
-  }
-
-  getStopOnLoseElement() {
-    return <UIText
-      key={'stopOnLoseLabel'}
-      anchor={{ x: 0, y: 0 }}
-      alpha={0.4}
-      text={tr('stopOnLose')}
-      style={{
-        fill: 0xffffff,
-        fontFamily: 'Rajdhani-fnt',
-        fontSize: 16,
-        align: UITextAlign.Left,
-      }}
-    />
-  }
-
-  getStopOnProfitElement() {
-    return <UIText
-      key={'stopOnProfitLabel'}
-      anchor={{ x: 0, y: 0 }}
-      alpha={0.4}
-      text={tr('stopOnProfit')}
-      style={{
-        fill: 0xffffff,
-        fontFamily: 'Rajdhani-fnt',
-        fontSize: 16,
-        align: UITextAlign.Left,
-      }}
-    />
-  }
-
   render() {
     const { x, y, width, height, state } = this.props
 

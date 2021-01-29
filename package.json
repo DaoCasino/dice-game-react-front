@@ -13,7 +13,7 @@
     "start:mock": "cross-env GAME_IS_MOCK=true npm run start",
     "dev:server": "cross-env NODE_ENV='development' BABEL_ENV='development' webpack serve --hot --inline --host 0.0.0.0",
     "watch": "cross-env BUILD_MODE='development' webpack -w -d",
-    "build_res": "build_res ./res_unoptimized ./res",
+    "prebuild": "node ./config/prebuild.js",
     "build": "cross-env NODE_ENV='production' BABEL_ENV='production' GENERATE_SOURCEMAP='false' webpack",
     "predeploy": "npm run build",
     "check_build": "npx serve ./build"

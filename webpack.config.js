@@ -220,10 +220,10 @@ module.exports = function() {
       symlinks: true,
       extensions: ['.wasm', '.ts', '.tsx', '.js', '.json', '.png'],
       alias: {
-        'react': path.resolve("./node_modules/react"),
-        'redux': path.resolve("./node_modules/redux"),
-        'react-redux': path.resolve("./node_modules/react-redux"),
-      }
+        'react': path.resolve('./node_modules/react'),
+        'redux': path.resolve('./node_modules/redux'),
+        'react-redux': path.resolve('./node_modules/react-redux'),
+      },
     },
     module: {
       strictExportPresence: true,
