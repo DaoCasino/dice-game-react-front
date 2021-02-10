@@ -9,7 +9,7 @@ import ChangeBetButton from '../../elements/ChangeBetButton'
 
 import BetAmount from '../../elements/BetAmount'
 import PayoutOnWin from '../../elements/PayoutOnWin'
-import RollJournal from '../../elements/RollList'
+import RollList from '../../elements/RollList'
 
 import {
   betDivideAction,
@@ -78,6 +78,7 @@ class BettingContainer extends Component<any, any> {
           width={changeBetButtonSize}
           height={changeBetButtonSize}
           text={tr('decreaseBetButton')}
+          text={tr('decreaseBetButton')}
           pointerdown={() => betDivideAction()}
         />
         <ChangeBetButton
@@ -101,7 +102,7 @@ class BettingContainer extends Component<any, any> {
           height={40}
           value={betAmountValue}
         />
-        <RollJournal x={betAmountX} y={22.5 + 18} />
+        <RollList x={betAmountX} y={22.5 + 18} maxRolls={8} />
       </UIContainer>
     )
   }

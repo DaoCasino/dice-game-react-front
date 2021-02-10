@@ -9,7 +9,7 @@ import ChangeBetButton from '../../elements/ChangeBetButton'
 
 import BetAmount from '../../elements/BetAmount'
 import PayoutOnWin from '../../elements/PayoutOnWin'
-import RollJournal from '../../elements/RollList'
+import RollList from '../../elements/RollList'
 
 class BettingContainer extends Component<any, any> {
   render() {
@@ -80,9 +80,10 @@ class BettingContainer extends Component<any, any> {
           height={40}
           value={betAmountValue}
         />
-        <RollJournal
+        <RollList
           x={betAmountX}
           y={22.5 + 18}
+          maxRolls={5}
         />
       </UIContainer>
     )

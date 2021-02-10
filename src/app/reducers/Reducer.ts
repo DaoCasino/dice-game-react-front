@@ -8,6 +8,7 @@ export const initialState = {
   isPlaying: false,
   profit: undefined,
   number: undefined,
+  rolls: [],
 }
 
 export const reducer = (state = initialState, action) => {
@@ -24,6 +25,11 @@ export const reducer = (state = initialState, action) => {
     }
 
     case ReducerAction.PLAY_SUCCESS: {
+      state.rolls.push({
+        number: payload.number,
+        profit: payload.profit,
+      })
+
       return {
         ...state,
         isPlaying: false,

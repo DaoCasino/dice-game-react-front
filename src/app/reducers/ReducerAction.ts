@@ -24,7 +24,6 @@ export const playAction = () => {
     gameAPI
       .play(bet, chance)
       .then(result => {
-        console.log(result)
         playSuccessAction({
           profit: result.profit,
           number: result.randomNumber,
