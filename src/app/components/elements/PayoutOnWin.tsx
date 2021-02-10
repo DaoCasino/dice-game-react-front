@@ -7,7 +7,7 @@ import { DiceMath } from '../../math/DiceMath'
 const PayoutOnWin = (props): JSX.Element => {
   const { bet, chance } = props
 
-  const value = DiceMath.getPayoutOnWin(bet, chance)
+  const value = DiceMath.getPayoutOnWin(bet, 100 -chance)
 
   return (
     <UIContainer x={props.x} y={props.y}>

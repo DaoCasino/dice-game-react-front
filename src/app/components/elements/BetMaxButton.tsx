@@ -1,14 +1,18 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
 import { tr, UIButton, UITextAlign } from '@daocasino/dc-react-gamengine'
 
-export const BetMaxButton = (props): JSX.Element => {
+const BetMaxButton = (props) => {
+  const interactive = !props.isPlaying
+
   return (
     <UIButton
       x={'x' in props ? props.x : 0}
       y={'y' in props ? props.y : 0}
-      interactive={true}
-      buttonMode={true}
+      alpha={interactive ? 1 : 0.5}
+      interactive={interactive}
+      buttonMode={interactive}
       shape={{
         x: 0,
         y: 0,
@@ -18,6 +22,9 @@ export const BetMaxButton = (props): JSX.Element => {
         gradientTo: 0xe3891a,
         gradientType: 'linear',
         borderRadius: 10,
+        interactive: interactive,
+        buttonMode: interactive,
+        pointerdown: props.pointerdown,
       }}
       text={{
         x: props.width / 2,
@@ -35,3 +42,13 @@ export const BetMaxButton = (props): JSX.Element => {
     />
   )
 }
+
+const mapState = state => {
+  const { isPlaying } = state
+
+  return {
+    isPlaying,
+  }
+}
+
+export default connect(mapState, null)(BetMaxButton)

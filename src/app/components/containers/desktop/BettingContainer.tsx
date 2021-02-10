@@ -3,17 +3,31 @@ import { connect } from 'react-redux'
 
 import { tr, UIContainer, UIRectangle } from '@daocasino/dc-react-gamengine'
 
-import { PlayButton } from '../../elements/PlayButton'
-import { BetMaxButton } from '../../elements/BetMaxButton'
-import { ChangeBetButton } from '../../elements/ChangeBetButton'
+import PlayButton from '../../elements/PlayButton'
+import BetMaxButton from '../../elements/BetMaxButton'
+import ChangeBetButton from '../../elements/ChangeBetButton'
 
 import BetAmount from '../../elements/BetAmount'
 import PayoutOnWin from '../../elements/PayoutOnWin'
-import RollJournal from '../../elements/RollJournal'
+import RollJournal from '../../elements/RollList'
+
+import {
+  betDivideAction,
+  betMultiplyAction,
+  playAction,
+} from '../../../reducers/ReducerAction'
 
 class BettingContainer extends Component<any, any> {
   render() {
-    const { x, y, width, height, state } = this.props
+    const {
+      x,
+      y,
+      width,
+      height,
+      playAction,
+      betDivideAction,
+      betMultiplyAction,
+    } = this.props
 
     const margin = 14
     const totalWidth = width - margin * 5
@@ -27,7 +41,7 @@ class BettingContainer extends Component<any, any> {
     const payoutOnWinY = height - margin * 2 - buttonHeight - margin - 40
     const payoutOnWnWidth = width - (payoutOnWinX + margin * 2)
 
-    const betAmountWidth = totalWidth * 32 / 100
+    const betAmountWidth = (totalWidth * 32) / 100
     const betAmountX = margin * 2
 
     const changeBetButtonSize = 40
@@ -43,6 +57,7 @@ class BettingContainer extends Component<any, any> {
           y={height - margin - buttonHeight}
           width={(totalWidth * playButtonWidthPercent) / 100}
           height={buttonHeight}
+          pointerdown={() => playAction()}
         />
         <BetMaxButton
           x={margin * 3 + (totalWidth * playButtonWidthPercent) / 100}
@@ -63,15 +78,21 @@ class BettingContainer extends Component<any, any> {
           width={changeBetButtonSize}
           height={changeBetButtonSize}
           text={tr('decreaseBetButton')}
-          pointerdown={() => {
-          }}
+          pointerdown={() => betDivideAction()}
         />
         <ChangeBetButton
-          x={betAmountX + betAmountWidth + margin + changeBetButtonSize + margin / 2}
+          x={
+            betAmountX +
+            betAmountWidth +
+            margin +
+            changeBetButtonSize +
+            margin / 2
+          }
           y={payoutOnWinY}
           width={changeBetButtonSize}
           height={changeBetButtonSize}
           text={tr('increaseBetButton')}
+          pointerdown={() => betMultiplyAction()}
         />
         <BetAmount
           x={betAmountX}
@@ -80,10 +101,7 @@ class BettingContainer extends Component<any, any> {
           height={40}
           value={betAmountValue}
         />
-        <RollJournal
-          x={betAmountX}
-          y={22.5 + 18}
-        />
+        <RollJournal x={betAmountX} y={22.5 + 18} />
       </UIContainer>
     )
   }
@@ -91,7 +109,10 @@ class BettingContainer extends Component<any, any> {
 
 const mapState = state => {
   return {
-    state: state,
+    state,
+    playAction,
+    betDivideAction,
+    betMultiplyAction,
   }
 }
 

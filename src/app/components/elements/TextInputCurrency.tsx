@@ -1,8 +1,22 @@
 import React, { Component } from 'react'
-import { Engine, UIContainer, UIRectangle, UISprite, UITextAlign, UITextInput, Utils } from '@daocasino/dc-react-gamengine'
+
+import {
+  Engine,
+  UIContainer,
+  UIRectangle,
+  UISprite,
+  UITextAlign,
+  UITextInput,
+  Utils,
+} from '@daocasino/dc-react-gamengine'
 
 export class TextInputCurrency extends Component<any, any> {
   render() {
+    const currencyManager = Engine.instance.getCurrencyManager()
+    const currencyProps = currencyManager.getProps()
+    const currencyTexture = currencyManager.getTexture('currency')
+    const currencyScale = currencyProps && currencyProps.scale > 0 ? 1 / currencyProps.scale : 1
+
     return <UIContainer x={this.props.x} y={this.props.y} interactive={true} buttonMode={false}>
       <UIRectangle
         width={this.props.width}
@@ -16,7 +30,8 @@ export class TextInputCurrency extends Component<any, any> {
         x={8}
         y={this.props.height / 2}
         anchor={{ x: 0, y: 0.5 }}
-        texture={Engine.instance.getResourceManager().getTexture('currency_png')}
+        scale={{ x: currencyScale, y: currencyScale }}
+        texture={currencyTexture}
       />
       <UITextInput
         x={40}

@@ -5,7 +5,7 @@ import { UIContainer } from '@daocasino/dc-react-gamengine'
 import RollOver from '../../elements/RollOver'
 import Payout from '../../elements/Payout'
 import WinChance from '../../elements/WinChance'
-import { Slider } from '../../elements/Slider'
+import Slider  from '../../elements/Slider'
 
 import { setChanceAction } from '../../../reducers/ReducerAction'
 

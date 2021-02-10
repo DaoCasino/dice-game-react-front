@@ -3,13 +3,13 @@ import { connect } from 'react-redux'
 
 import { tr, UIContainer, UIRectangle } from '@daocasino/dc-react-gamengine'
 
-import { PlayButton } from '../../elements/PlayButton'
-import { BetMaxButton } from '../../elements/BetMaxButton'
-import { ChangeBetButton } from '../../elements/ChangeBetButton'
+import PlayButton from '../../elements/PlayButton'
+import BetMaxButton from '../../elements/BetMaxButton'
+import ChangeBetButton from '../../elements/ChangeBetButton'
 
 import BetAmount from '../../elements/BetAmount'
 import PayoutOnWin from '../../elements/PayoutOnWin'
-import RollJournal from '../../elements/RollJournal'
+import RollJournal from '../../elements/RollList'
 
 class BettingContainer extends Component<any, any> {
   render() {

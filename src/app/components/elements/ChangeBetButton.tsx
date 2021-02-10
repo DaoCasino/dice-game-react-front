@@ -1,14 +1,18 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
 import { UIButton, UITextAlign } from '@daocasino/dc-react-gamengine'
 
-export const ChangeBetButton = (props): JSX.Element => {
+const ChangeBetButton = (props): JSX.Element => {
+  const interactive = !props.isPlaying
+
   return (
     <UIButton
       x={'x' in props ? props.x : 0}
       y={'y' in props ? props.y : 0}
-      interactive={true}
-      buttonMode={true}
+      alpha={interactive ? 1 : 0.5}
+      interactive={interactive}
+      buttonMode={interactive}
       shape={{
         x: 0,
         y: 0,
@@ -18,8 +22,8 @@ export const ChangeBetButton = (props): JSX.Element => {
         gradientTo: 0x6e62e4,
         gradientType: 'linear',
         borderRadius: 10,
-        interactive: true,
-        buttonMode: true,
+        interactive: interactive,
+        buttonMode: interactive,
         pointerdown: props.pointerdown,
       }}
       text={{
@@ -37,3 +41,14 @@ export const ChangeBetButton = (props): JSX.Element => {
     />
   )
 }
+
+const mapState = state => {
+  const { isPlaying } = state
+
+  return {
+    isPlaying,
+  }
+}
+
+export default connect(mapState, null)(ChangeBetButton)
+

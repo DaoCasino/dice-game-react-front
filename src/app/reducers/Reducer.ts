@@ -3,18 +3,50 @@ import { ReducerAction } from './ReducerAction'
 export const initialState = {
   chance: 50,
   bet: 10,
-  betLimits: { min: 0, max: 0 },
+  betLimits: { min: 1, max: 0, maxPayout: 0 },
   balance: 0,
+  isPlaying: false,
+  profit: undefined,
+  number: undefined,
 }
 
 export const reducer = (state = initialState, action) => {
   const payload = action.payload
 
   switch (action.type) {
+    case ReducerAction.PLAY: {
+      return {
+        ...state,
+        isPlaying: true,
+        profit: undefined,
+        number: undefined,
+      }
+    }
+
+    case ReducerAction.PLAY_SUCCESS: {
+      return {
+        ...state,
+        isPlaying: false,
+        profit: payload.profit,
+        number: payload.number,
+      }
+    }
+
+    case ReducerAction.PLAY_ERROR: {
+      return {
+        ...state,
+        isPlaying: false,
+        profit: undefined,
+        number: undefined,
+      }
+    }
+
     case ReducerAction.SET_CHANCE: {
       return {
         ...state,
         chance: payload,
+        profit: undefined,
+        number: undefined,
       }
     }
 
@@ -36,6 +68,8 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         bet: Math.min(state.betLimits.max, state.bet * 2),
+        profit: undefined,
+        number: undefined,
       }
     }
 
@@ -43,6 +77,8 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         bet: Math.max(state.betLimits.min, state.bet / 2),
+        profit: undefined,
+        number: undefined,
       }
     }
 

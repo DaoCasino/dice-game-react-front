@@ -25,7 +25,7 @@ const BetAmount = (props): JSX.Element => {
       <TextInputCurrency
         width={props.width}
         height={props.height}
-        value={Utils.formatCurrency(value)}
+        value={value}
       />
     </UIContainer>
   )
