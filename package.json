@@ -22,7 +22,7 @@
   "author": "whilesocold@gmail.com",
   "license": "ISC",
   "dependencies": {
-    "@daocasino/dc-react-gamengine": "^1.0.3",
+    "@daocasino/dc-react-gamengine": "^1.0.4",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "eventemitter3": "^4.0.4",
