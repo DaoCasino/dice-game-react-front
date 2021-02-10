@@ -17,7 +17,7 @@ const RollOver = (props): JSX.Element => {
   const valueText = Utils.formatCurrency(value)
   const valueWidth = PIXI.TextMetrics.measureText(valueText, new PIXI.TextStyle(valueStyle)).width
 
-  const texture = Engine.instance.getResourceManager().getTexture('down_png')
+  const texture = Engine.instance.getResourceManager().getTexture('up_png')
   const totalWidth = valueWidth + texture.width
 
   return (

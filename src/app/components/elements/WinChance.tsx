@@ -25,7 +25,7 @@ const WinChance = (props): JSX.Element => {
       <UIText
         y={34}
         anchor={{ x: 0.5, y: 0.5 }}
-        text={'x' + value}
+        text={value + '%'}
         style={{
           fill: 0xffffff,
           fontFamily: 'Rajdhani-fnt',
