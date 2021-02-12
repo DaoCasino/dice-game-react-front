@@ -5,7 +5,7 @@ git:
 
 env:
   global:
-    - IMG_NAME=daocasino/dicegamereactfront
+    - IMG_NAME=daocasino/dicegamefront
     - IMG_TAG=${TRAVIS_TAG:-${TRAVIS_BRANCH}-${TRAVIS_COMMIT:0:5}}
 
 environments:
