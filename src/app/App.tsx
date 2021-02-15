@@ -25,11 +25,14 @@ import { setBalanceAction, setBetLimitsAction } from './reducers/ReducerAction'
 import { DiceBackend } from './math/DiceBackend'
 
 interface AppInitOptions {
-  debugMode?: boolean
+  isDebug?: boolean
+  isMock?: boolean
 }
 
 export class App extends EventEmitter {
   static instance: App
+
+  protected props: AppInitOptions
 
   protected engine: Engine
   protected store: Store
@@ -46,9 +49,16 @@ export class App extends EventEmitter {
 
   public async init(
     props: AppInitOptions = {
-      debugMode: process.env.BUILD_MODE === 'development',
-    }
+      isDebug: process.env.BUILD_MODE === 'development',
+      isMock: process.env.GAME_IS_MOCK,
+    },
   ): Promise<void> {
+    this.props = props
+
+    if (new URLSearchParams(window.location.search).has('demo')) {
+      this.props.isMock = true
+    }
+
     console.log('App::init() -', props)
 
     await this.initEngine(reducer, initialState, [thunk])
@@ -82,7 +92,7 @@ export class App extends EventEmitter {
   protected async initEngine(
     reducer: any,
     initialState: any,
-    middlewares: any[] = []
+    middlewares: any[] = [],
   ): Promise<void> {
     this.engine = new Engine()
     this.engine.init(reducer, initialState, middlewares)
@@ -177,7 +187,7 @@ export class App extends EventEmitter {
 
   protected async connectToServer() {
     try {
-      this.gameAPI = process.env.GAME_IS_MOCK
+      this.gameAPI = this.props.isMock
         ? new DiceMock()
         : new DiceBackend()
 
@@ -202,8 +212,7 @@ export class App extends EventEmitter {
   protected async initLocal(): Promise<void> {
     const url = new URL(window.location.href)
 
-    url.pathname +=
-      process.env.NODE_ENV === 'development' ? './public/local/' : './local/'
+    url.pathname += this.props.isDebug ? './public/local/' : './local/'
     url.search = ''
 
     try {
