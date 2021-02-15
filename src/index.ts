@@ -11,7 +11,5 @@ declare global {
 window.app = app || {}
 
 document.addEventListener('DOMContentLoaded', async () => {
-  await app.init({
-    debugMode: true,
-  })
+  await app.init()
 })
