@@ -18,5 +18,7 @@
   "increaseBy": "INCREASE BY",
   "decreaseBy": "DECREASE BY",
   "tabManualBet": "MANUAL BET",
-  "tabAutoBet": "AUTO BET"
+  "tabAutoBet": "AUTO BET",
+  "autobetOn": "ON",
+  "autobetOff": "OFF"
 }

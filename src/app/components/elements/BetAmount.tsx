@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import { tr, UIContainer, UIText, UITextAlign } from '@daocasino/dc-react-gamengine'
-import { TextInputCurrency } from './TextInputCurrency'
+import { CurrencyInput } from './CurrencyInput'
 import { betInputAction } from '../../reducers/ReducerAction'
 
 const BetAmount = (props): JSX.Element => {
@@ -23,13 +23,12 @@ const BetAmount = (props): JSX.Element => {
           align: UITextAlign.Left,
         }}
       />
-      <TextInputCurrency
+      <CurrencyInput
         width={props.width}
         height={props.height}
         min={betLimits.min}
         max={Math.min(balance, betLimits.max)}
         value={value}
-        onChange={value => betInputAction(value)}
         onBlur={value => betInputAction(value)}
       />
     </UIContainer>

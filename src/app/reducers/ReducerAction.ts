@@ -11,7 +11,14 @@ export enum ReducerAction {
   BET_MULTIPLY = 'ReducerAction.BET_MULTIPLY',
   BET_DIVIDE = 'ReducerAction.BET_DIVIDE',
   BET_INPUT = 'ReducerAction.BET_INPUT',
-  SOUND_ON_OFF = 'ReducerAction.SOUND_ON_OFF'
+  SOUND_ON_OFF = 'ReducerAction.SOUND_ON_OFF',
+  AUTOBET_ON_OFF = 'ReducerAction.AUTOBET_ON_OFF',
+  AUTOBET_ON_WIN_MODE = 'ReducerAction.AUTOBET_ON_WIN_MODE',
+  AUTOBET_ON_LOSE_MODE = 'ReducerAction.AUTOBET_ON_LOSE_MODE',
+  AUTOBET_ON_WIN_INPUT = 'ReducerAction.AUTOBET_ON_WIN_INPUT',
+  AUTOBET_ON_LOSE_INPUT = 'ReducerAction.AUTOBET_ON_LOSE_INPUT',
+  AUTOBET_STOP_ON_WIN_INPUT = 'ReducerAction.AUTOBET_STOP_ON_WIN_INPUT',
+  AUTOBET_STOP_ON_LOSE_INPUT = 'ReducerAction.AUTOBET_STOP_ON_LOSE_INPUT',
 }
 
 export const playAction = () => {
@@ -88,4 +95,46 @@ export const soundOnOffAction = payload => {
   Engine.instance
     .getStore()
     .dispatch({ type: ReducerAction.SOUND_ON_OFF, payload: payload })
+}
+
+export const autobetOnOffAction = payload => {
+  Engine.instance
+    .getStore()
+    .dispatch({ type: ReducerAction.AUTOBET_ON_OFF, payload: payload })
+}
+
+export const autobetOnWinInputAction = payload => {
+  Engine.instance
+    .getStore()
+    .dispatch({ type: ReducerAction.AUTOBET_ON_WIN_INPUT, payload: payload })
+}
+
+export const autobetOnLoseInputAction = payload => {
+  Engine.instance
+    .getStore()
+    .dispatch({ type: ReducerAction.AUTOBET_ON_LOSE_INPUT, payload: payload })
+}
+
+export const autobetStopOnWinInputAction = payload => {
+  Engine.instance
+    .getStore()
+    .dispatch({ type: ReducerAction.AUTOBET_STOP_ON_WIN_INPUT, payload: payload })
+}
+
+export const autobetStopOnLoseInputAction = payload => {
+  Engine.instance
+    .getStore()
+    .dispatch({ type: ReducerAction.AUTOBET_STOP_ON_LOSS_INPUT, payload: payload })
+}
+
+export const autobetOnWinModeAction = payload => {
+  Engine.instance
+    .getStore()
+    .dispatch({ type: ReducerAction.AUTOBET_ON_WIN_MODE, payload: payload })
+}
+
+export const autobetOnLoseModeAction = payload => {
+  Engine.instance
+    .getStore()
+    .dispatch({ type: ReducerAction.AUTOBET_ON_LOSE_MODE, payload: payload })
 }
