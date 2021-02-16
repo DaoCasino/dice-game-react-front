@@ -12,7 +12,9 @@ export enum ReducerAction {
   BET_DIVIDE = 'ReducerAction.BET_DIVIDE',
   BET_INPUT = 'ReducerAction.BET_INPUT',
   SOUND_ON_OFF = 'ReducerAction.SOUND_ON_OFF',
+  AUTOBET_STOP = 'ReducerAction.AUTOBET_STOP',
   AUTOBET_COUNT = 'ReducerAction.AUTOBET_COUNT',
+  AUTOBET_COUNTER = 'ReducerAction.AUTOBET_COUNTER',
   AUTOBET_ON_OFF = 'ReducerAction.AUTOBET_ON_OFF',
   AUTOBET_ON_WIN_MODE = 'ReducerAction.AUTOBET_ON_WIN_MODE',
   AUTOBET_ON_LOSE_MODE = 'ReducerAction.AUTOBET_ON_LOSE_MODE',
@@ -98,11 +100,24 @@ export const soundOnOffAction = payload => {
     .dispatch({ type: ReducerAction.SOUND_ON_OFF, payload: payload })
 }
 
+export const autobetStopAction = () => {
+  Engine.instance
+    .getStore()
+    .dispatch({ type: ReducerAction.AUTOBET_STOP })
+}
+
 export const setAutobetCountAction = payload => {
   Engine.instance
     .getStore()
     .dispatch({ type: ReducerAction.AUTOBET_COUNT, payload: payload })
 }
+
+export const setAutobetCounterAction = payload => {
+  Engine.instance
+    .getStore()
+    .dispatch({ type: ReducerAction.AUTOBET_COUNTER, payload: payload })
+}
+
 
 export const autobetOnOffAction = payload => {
   Engine.instance

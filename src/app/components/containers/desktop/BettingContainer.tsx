@@ -11,7 +11,7 @@ import BetAmount from '../../elements/BetAmount'
 import PayoutOnWin from '../../elements/PayoutOnWin'
 import RollList from '../../elements/RollList'
 
-import { betDivideAction, betMultiplyAction, playAction } from '../../../reducers/ReducerAction'
+import { autobetStopAction, betDivideAction, betMultiplyAction, playAction } from '../../../reducers/ReducerAction'
 import AutobetList from '../../elements/AutobetList'
 import { AutobetCounts } from '../../../reducers/Reducer'
 
@@ -23,10 +23,13 @@ class BettingContainer extends Component<any, any> {
       width,
       height,
       autobetOnOff,
+      autobetCounter,
       playAction,
       betDivideAction,
       betMultiplyAction,
     } = this.props
+
+    const isAutobetRunning = autobetOnOff && autobetCounter > -1
 
     const margin = 14
     const totalWidth = width - margin * 4
@@ -59,7 +62,7 @@ class BettingContainer extends Component<any, any> {
           y={height - margin - buttonHeight}
           width={(totalWidth * playButtonWidthPercent) / 100}
           height={buttonHeight}
-          pointerdown={() => playAction()}
+          pointerdown={() => isAutobetRunning ? autobetStopAction() : playAction()}
         />
         {autobetOnOff ? null : (
           <BetMaxButton
@@ -128,9 +131,10 @@ class BettingContainer extends Component<any, any> {
 }
 
 const mapState = state => {
-  const { autobetOnOff } = state
+  const { autobetOnOff, autobetCounter } = state
   return {
     autobetOnOff,
+    autobetCounter,
     playAction,
     betDivideAction,
     betMultiplyAction,

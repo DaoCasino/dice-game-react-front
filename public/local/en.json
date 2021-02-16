@@ -19,7 +19,8 @@
   "decreaseBy": "DECREASE BY",
   "tabManualBet": "MANUAL BET",
   "tabAutoBet": "AUTO BET",
-  "autobetSpinButton": "Start Autobet",
+  "autobetStartButton": "Start Autobet",
+  "autobetStopButton": "Stop Autobet",
   "autobetOn": "ON",
   "autobetOff": "OFF",
   "autobetCount": "NUMBER OF BETS"

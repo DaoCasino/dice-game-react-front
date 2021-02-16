@@ -1,23 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import {
-  UIButton,
-  UIContainer,
-  UIList,
-  UIListStyle,
-  UITextAlign,
-} from '@daocasino/dc-react-gamengine'
+import { UIButton, UIContainer, UIList, UIListStyle, UITextAlign } from '@daocasino/dc-react-gamengine'
 import { setAutobetCountAction } from '../../reducers/ReducerAction'
 
 const AutobetListItem = (props): JSX.Element => {
-  const { width, height, count, selected } = props
-  const interactive = true
-
-  console.log(selected)
+  const { width, height, count, selected, interactive } = props
 
   return (
-    <UIContainer x={props.x} y={props.y}>
+    <UIContainer x={props.x} y={props.y} alpha={interactive ? 1 : 0.5}>
       <UIButton
         interactive={interactive}
         buttonMode={interactive}
@@ -56,7 +47,8 @@ const AutobetListItem = (props): JSX.Element => {
 const createListItem = (
   index: number,
   count: number,
-  selected: boolean = false
+  selected: boolean = false,
+  interactive: boolean = true,
 ) => {
   const width = count.toString().length * 7 + 30
   const height = 36
@@ -68,16 +60,18 @@ const createListItem = (
       width={width}
       height={height}
       selected={selected}
+      interactive={interactive}
+      buttonMode={interactive}
       pointerdown={() => setAutobetCountAction(count)}
     />
   )
 }
 
 const AutobetList = (props): JSX.Element => {
-  const { x, y, counts, autobetCount } = props
+  const { x, y, counts, isPlaying, autobetCount } = props
 
   const items = counts.map((count, index) =>
-    createListItem(index, count, count === autobetCount)
+    createListItem(index, count, count === autobetCount, !isPlaying),
   )
 
   return (
@@ -94,9 +88,10 @@ const AutobetList = (props): JSX.Element => {
 }
 
 const mapState = state => {
-  const { autobetCount } = state
+  const { isPlaying, autobetCount } = state
 
   return {
+    isPlaying,
     autobetCount,
   }
 }

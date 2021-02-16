@@ -24,6 +24,7 @@ import { DiceMock } from './math/DiceMock'
 import { setBalanceAction, setBetLimitsAction } from './reducers/ReducerAction'
 import { DiceBackend } from './math/DiceBackend'
 import { SoundMiddleware } from './middlewares/SoundMiddleware'
+import { AutobetMiddleware } from './middlewares/AutobetMiddleware'
 
 interface AppInitOptions {
   isDebug?: boolean
@@ -64,6 +65,7 @@ export class App extends EventEmitter {
 
     await this.initEngine(reducer, initialState, [
       thunk,
+      AutobetMiddleware,
       SoundMiddleware,
     ])
     await this.initLocal()

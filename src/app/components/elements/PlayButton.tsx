@@ -4,9 +4,10 @@ import { connect } from 'react-redux'
 import { tr, UIButton, UITextAlign } from '@daocasino/dc-react-gamengine'
 
 const PlayButton = (props): JSX.Element => {
-  const { autobetOnOff, isPlaying } = props
+  const { isPlaying, autobetOnOff, autobetCounter } = props
 
-  const interactive = !isPlaying
+  const isAutobetRunning = autobetOnOff && autobetCounter > -1
+  const interactive = autobetOnOff ? (isAutobetRunning ? true : !isPlaying) : !isPlaying
 
   return (
     <UIButton
@@ -20,8 +21,8 @@ const PlayButton = (props): JSX.Element => {
         y: 0,
         width: props.width,
         height: props.height,
-        gradientFrom: 0x5792f0,
-        gradientTo: 0x6e62e4,
+        gradientFrom: isAutobetRunning ? 0xeb386e : 0x5792f0,
+        gradientTo: isAutobetRunning ? 0xe44141 : 0x6e62e4,
         gradientType: 'linear',
         borderRadius: 10,
         interactive: interactive,
@@ -29,15 +30,21 @@ const PlayButton = (props): JSX.Element => {
         pointerdown: props.pointerdown,
       }}
       text={{
-        x: props.width / 2,
+        x: isAutobetRunning ? 20 : props.width / 2,
         y: props.height / 2,
-        anchor: { x: 0.5, y: 0.5 },
-        text: tr(autobetOnOff ? 'autobetSpinButton' : 'spinButton'),
+        anchor: { x: isAutobetRunning ? 0 : 0.5, y: 0.5 },
+        text: tr(
+          autobetOnOff ?
+            isAutobetRunning
+              ? 'autobetStopButton'
+              : 'autobetStartButton'
+            : 'spinButton',
+        ),
         style: {
           fill: 0xffffff,
           fontFamily: 'Rajdhani-Bold-fnt',
           fontSize: 28,
-          align: UITextAlign.Center,
+          align: isAutobetRunning ? UITextAlign.Left : UITextAlign.Center,
         },
       }}
     />
@@ -45,11 +52,12 @@ const PlayButton = (props): JSX.Element => {
 }
 
 const mapState = state => {
-  const { isPlaying, autobetOnOff } = state
+  const { isPlaying, autobetOnOff, autobetCounter } = state
 
   return {
     isPlaying,
     autobetOnOff,
+    autobetCounter,
   }
 }
 

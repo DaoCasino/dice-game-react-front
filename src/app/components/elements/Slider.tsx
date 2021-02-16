@@ -148,6 +148,7 @@ class Slider extends Component<any, any> {
       showSteps,
       number,
       profit,
+      isPlaying,
     } = this.props
     const { value } = this.state
 
@@ -214,8 +215,8 @@ class Slider extends Component<any, any> {
           height={handleHeight}
           fill={0xffffff}
           borderRadius={8}
-          buttonMode={true}
-          interactive={true}
+          buttonMode={!isPlaying}
+          interactive={!isPlaying}
           pointerdown={e => {
             this.draggingData = e.data
             this.dragging = true
@@ -282,12 +283,13 @@ class Slider extends Component<any, any> {
 }
 
 const mapState = state => {
-  const { chance, profit, number } = state
+  const { chance, profit, number, isPlaying } = state
 
   return {
     chance,
     profit,
     number,
+    isPlaying,
   }
 }
 

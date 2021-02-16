@@ -20,7 +20,7 @@ export const initialState = {
   rolls: [],
   soundOnOff: true,
   autobetCount: -1,
-  autobetCounter: 0,
+  autobetCounter: -1,
   autobetOnOff: false,
   autobetOnWinMode: AutobetMode.RESET,
   autobetOnLoseMode: AutobetMode.RESET,
@@ -88,7 +88,7 @@ export const reducer = (state = initialState, action) => {
         ...state,
         bet: Math.min(
           state.betLimits.max,
-          Math.max(state.betLimits.min, payload),
+          Math.max(state.betLimits.min, payload)
         ),
         profit: undefined,
         number: undefined,
@@ -113,17 +113,22 @@ export const reducer = (state = initialState, action) => {
     case ReducerAction.SOUND_ON_OFF: {
       return { ...state, soundOnOff: payload }
     }
-    case ReducerAction.AUTOBET_ON_OFF: {
-      let { autobetCount } = state
-
-      if (payload && autobetCount === -1) {
-        autobetCount = AutobetCounts[0]
+    case ReducerAction.AUTOBET_STOP: {
+      return {
+        ...state,
+        autobetCounter: -1,
+        profit: undefined,
+        number: undefined,
       }
-
-      return { ...state, autobetOnOff: payload, autobetCount: autobetCount }
+    }
+    case ReducerAction.AUTOBET_ON_OFF: {
+      return { ...state, autobetOnOff: payload }
     }
     case ReducerAction.AUTOBET_COUNT: {
       return { ...state, autobetCount: payload }
+    }
+    case ReducerAction.AUTOBET_COUNTER: {
+      return { ...state, autobetCounter: payload }
     }
     case ReducerAction.AUTOBET_ON_WIN_INPUT: {
       return { ...state, autobetOnWin: payload }
