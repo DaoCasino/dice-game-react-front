@@ -70,6 +70,15 @@ export const reducer = (state = initialState, action) => {
       }
     }
 
+    case ReducerAction.BET_INPUT: {
+      return {
+        ...state,
+        bet: Math.min(state.betLimits.max, Math.max(state.betLimits.min, payload)),
+        profit: undefined,
+        number: undefined,
+      }
+    }
+
     case ReducerAction.BET_MULTIPLY: {
       return {
         ...state,

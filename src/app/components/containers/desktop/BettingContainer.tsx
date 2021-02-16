@@ -11,11 +11,7 @@ import BetAmount from '../../elements/BetAmount'
 import PayoutOnWin from '../../elements/PayoutOnWin'
 import RollList from '../../elements/RollList'
 
-import {
-  betDivideAction,
-  betMultiplyAction,
-  playAction,
-} from '../../../reducers/ReducerAction'
+import { betDivideAction, betMultiplyAction, playAction } from '../../../reducers/ReducerAction'
 
 class BettingContainer extends Component<any, any> {
   render() {
@@ -77,7 +73,6 @@ class BettingContainer extends Component<any, any> {
           y={payoutOnWinY}
           width={changeBetButtonSize}
           height={changeBetButtonSize}
-          text={tr('decreaseBetButton')}
           text={tr('decreaseBetButton')}
           pointerdown={() => betDivideAction()}
         />

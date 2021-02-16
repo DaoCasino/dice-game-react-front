@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { UIContainer, UIRectangle, UIText, UITextAlign, Utils } from '@daocasino/dc-react-gamengine'
+import { UIContainer, UIRectangle, UIText, UITextAlign } from '@daocasino/dc-react-gamengine'
 
 export class TextInput extends Component<any, any> {
   render() {
@@ -16,7 +16,7 @@ export class TextInput extends Component<any, any> {
         x={15}
         y={this.props.height / 2}
         anchor={{ x: 0, y: 0.5 }}
-        text={Utils.formatCurrency(this.props.value)}
+        text={this.props.value}
         style={{
           fill: 0xffffff,
           fontFamily: 'Rajdhani-fnt',

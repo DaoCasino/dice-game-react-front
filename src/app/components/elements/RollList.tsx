@@ -1,15 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import {
-  tr,
-  UIButton,
-  UIContainer,
-  UIList,
-  UIListStyle,
-  UIText,
-  UITextAlign,
-} from '@daocasino/dc-react-gamengine'
+import { tr, UIButton, UIContainer, UIList, UIListStyle, UIText, UITextAlign } from '@daocasino/dc-react-gamengine'
 
 const RollListItem = (props): JSX.Element => {
   const { width, height, rollover, profit } = props

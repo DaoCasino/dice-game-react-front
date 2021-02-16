@@ -1,11 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { tr, UIContainer, UIText, UITextAlign, Utils } from '@daocasino/dc-react-gamengine'
+import { tr, UIContainer, UIText, UITextAlign } from '@daocasino/dc-react-gamengine'
 import { TextInputCurrency } from './TextInputCurrency'
+import { betInputAction } from '../../reducers/ReducerAction'
 
 const BetAmount = (props): JSX.Element => {
-  const { bet: value } = props
+  const { bet: value, betLimits, balance } = props
 
   return (
     <UIContainer x={props.x} y={props.y} interactive={false} buttonMode={false}>
@@ -25,17 +26,23 @@ const BetAmount = (props): JSX.Element => {
       <TextInputCurrency
         width={props.width}
         height={props.height}
+        min={betLimits.min}
+        max={Math.min(balance, betLimits.max)}
         value={value}
+        onChange={value => betInputAction(value)}
+        onBlur={value => betInputAction(value)}
       />
     </UIContainer>
   )
 }
 
 const mapState = (state) => {
-  const { bet } = state
+  const { bet, betLimits, balance } = state
 
   return {
     bet,
+    betLimits,
+    balance,
   }
 }
 

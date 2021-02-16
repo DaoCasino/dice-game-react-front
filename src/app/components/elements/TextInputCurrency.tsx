@@ -17,6 +17,11 @@ export class TextInputCurrency extends Component<any, any> {
     const currencyTexture = currencyManager.getTexture('currency')
     const currencyScale = currencyProps && currencyProps.scale > 0 ? 1 / currencyProps.scale : 1
 
+    const currencyIconWidth = currencyTexture.width * currencyScale
+    const currencyIconMargin = 8
+
+    const textInputMargin = 40
+
     return <UIContainer x={this.props.x} y={this.props.y} interactive={true} buttonMode={false}>
       <UIRectangle
         width={this.props.width}
@@ -27,17 +32,21 @@ export class TextInputCurrency extends Component<any, any> {
         strokeThickness={1}
       />
       <UISprite
-        x={8}
+        x={currencyIconMargin}
         y={this.props.height / 2}
         anchor={{ x: 0, y: 0.5 }}
         scale={{ x: currencyScale, y: currencyScale }}
         texture={currencyTexture}
       />
       <UITextInput
-        x={40}
+        x={textInputMargin}
         y={this.props.height / 2}
+        width={this.props.width - textInputMargin - currencyIconMargin}
+        min={this.props.min}
+        max={this.props.max}
+        type={'number'}
         anchor={{ x: 0, y: 0.5 }}
-        text={Utils.formatCurrency(this.props.value)}
+        text={this.props.value}
         interactive={true}
         buttonMode={true}
         style={{
@@ -46,6 +55,7 @@ export class TextInputCurrency extends Component<any, any> {
           fontSize: 20,
           align: UITextAlign.Left,
         }}
+        onBlur={value => this.props.onBlur && this.props.onBlur(Utils.formatBet(value))}
       />
     </UIContainer>
   }
