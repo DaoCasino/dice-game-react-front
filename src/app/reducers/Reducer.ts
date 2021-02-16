@@ -7,6 +7,8 @@ export enum AutobetMode {
   DECREASE = 'AutobetMode.DECREASE',
 }
 
+export const AutobetCounts = [5, 10, 25, 50, 0]
+
 export const initialState = {
   chance: 50,
   bet: 10,
@@ -17,6 +19,8 @@ export const initialState = {
   number: undefined,
   rolls: [],
   soundOnOff: true,
+  autobetCount: -1,
+  autobetCounter: 0,
   autobetOnOff: false,
   autobetOnWinMode: AutobetMode.RESET,
   autobetOnLoseMode: AutobetMode.RESET,
@@ -110,7 +114,16 @@ export const reducer = (state = initialState, action) => {
       return { ...state, soundOnOff: payload }
     }
     case ReducerAction.AUTOBET_ON_OFF: {
-      return { ...state, autobetOnOff: payload }
+      let { autobetCount } = state
+
+      if (payload && autobetCount === -1) {
+        autobetCount = AutobetCounts[0]
+      }
+
+      return { ...state, autobetOnOff: payload, autobetCount: autobetCount }
+    }
+    case ReducerAction.AUTOBET_COUNT: {
+      return { ...state, autobetCount: payload }
     }
     case ReducerAction.AUTOBET_ON_WIN_INPUT: {
       return { ...state, autobetOnWin: payload }

@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
+import { TweenMax } from 'gsap'
 
-import { tr, UICircle, UIContainer, UIRectangle, UIText, UITextAlign } from '@daocasino/dc-react-gamengine'
+import { tr, UICircle, UIContainer, UIRectangle, UIText, UITextAlign, Utils } from '@daocasino/dc-react-gamengine'
 import { autobetOnOffAction } from '../../reducers/ReducerAction'
 
 const AutobetToggleButton = (props): JSX.Element => {
@@ -9,6 +10,34 @@ const AutobetToggleButton = (props): JSX.Element => {
 
   const width = 60
   const height = 30
+
+  const toggleOnX = width - height / 2
+  const toggleOffX = height / 2
+
+  const [toggleProps, setToggleProps] = useState({
+    x: autobetOnOff ? toggleOnX : toggleOffX,
+  })
+
+  let toggleRef = null
+
+  useEffect(() => {
+    const togglePropsTemp = { x: autobetOnOff ? toggleOnX : toggleOffX }
+
+    TweenMax.to(togglePropsTemp, 0.15, {
+      x: autobetOnOff ? toggleOnX : toggleOffX,
+      onUpdate: function() {
+        setToggleProps({
+          x: Utils.remap(
+            this.progress(),
+            0,
+            1,
+            autobetOnOff ? toggleOffX : toggleOnX,
+            autobetOnOff ? toggleOnX : toggleOffX,
+          ),
+        })
+      },
+    })
+  }, [autobetOnOff])
 
   const onButton = (
     <UIRectangle
@@ -38,9 +67,10 @@ const AutobetToggleButton = (props): JSX.Element => {
   const selectorRadius = height / 2 - selectorMargin
   const selector = (
     <UICircle
+      ref={ref => (toggleRef = ref)}
       fill={0xffffff}
       radius={selectorRadius}
-      x={autobetOnOff ? width - height / 2 : height / 2}
+      x={toggleProps.x}
       y={height / 2}
     />
   )

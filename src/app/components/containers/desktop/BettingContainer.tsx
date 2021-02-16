@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { tr, UIContainer, UIRectangle } from '@daocasino/dc-react-gamengine'
+import { tr, UIContainer, UIRectangle, UIText, UITextAlign } from '@daocasino/dc-react-gamengine'
 
 import PlayButton from '../../elements/PlayButton'
 import BetMaxButton from '../../elements/BetMaxButton'
@@ -12,6 +12,8 @@ import PayoutOnWin from '../../elements/PayoutOnWin'
 import RollList from '../../elements/RollList'
 
 import { betDivideAction, betMultiplyAction, playAction } from '../../../reducers/ReducerAction'
+import AutobetList from '../../elements/AutobetList'
+import { AutobetCounts } from '../../../reducers/Reducer'
 
 class BettingContainer extends Component<any, any> {
   render() {
@@ -20,15 +22,16 @@ class BettingContainer extends Component<any, any> {
       y,
       width,
       height,
+      autobetOnOff,
       playAction,
       betDivideAction,
       betMultiplyAction,
     } = this.props
 
     const margin = 14
-    const totalWidth = width - margin * 5
+    const totalWidth = width - margin * 4
 
-    const playButtonWidthPercent = 80
+    const playButtonWidthPercent = autobetOnOff ? 100 : 80
     const betMaxButtonWidthPercent = 100 - playButtonWidthPercent
 
     const buttonHeight = 64
@@ -41,6 +44,9 @@ class BettingContainer extends Component<any, any> {
     const betAmountX = margin * 2
 
     const changeBetButtonSize = 40
+    const changeBetDivideX = betAmountX + betAmountWidth + margin
+    const changeBetMultiplyX =
+      betAmountX + betAmountWidth + margin + changeBetButtonSize + margin / 2
 
     const payoutOnWinValue = 0
     const betAmountValue = 0
@@ -55,21 +61,25 @@ class BettingContainer extends Component<any, any> {
           height={buttonHeight}
           pointerdown={() => playAction()}
         />
-        <BetMaxButton
-          x={margin * 3 + (totalWidth * playButtonWidthPercent) / 100}
-          y={height - margin - buttonHeight}
-          width={(totalWidth * betMaxButtonWidthPercent) / 100}
-          height={buttonHeight}
-        />
-        <PayoutOnWin
-          x={payoutOnWinX}
-          y={payoutOnWinY}
-          width={payoutOnWnWidth}
-          height={40}
-          value={payoutOnWinValue}
-        />
+        {autobetOnOff ? null : (
+          <BetMaxButton
+            x={margin * 3 + (totalWidth * playButtonWidthPercent) / 100}
+            y={height - margin - buttonHeight}
+            width={(totalWidth * betMaxButtonWidthPercent) / 100 - margin}
+            height={buttonHeight}
+          />
+        )}
+        {autobetOnOff ? null : (
+          <PayoutOnWin
+            x={payoutOnWinX}
+            y={payoutOnWinY}
+            width={payoutOnWnWidth}
+            height={40}
+            value={payoutOnWinValue}
+          />
+        )}
         <ChangeBetButton
-          x={betAmountX + betAmountWidth + margin}
+          x={changeBetDivideX}
           y={payoutOnWinY}
           width={changeBetButtonSize}
           height={changeBetButtonSize}
@@ -77,13 +87,7 @@ class BettingContainer extends Component<any, any> {
           pointerdown={() => betDivideAction()}
         />
         <ChangeBetButton
-          x={
-            betAmountX +
-            betAmountWidth +
-            margin +
-            changeBetButtonSize +
-            margin / 2
-          }
+          x={changeBetMultiplyX}
           y={payoutOnWinY}
           width={changeBetButtonSize}
           height={changeBetButtonSize}
@@ -98,14 +102,35 @@ class BettingContainer extends Component<any, any> {
           value={betAmountValue}
         />
         <RollList x={betAmountX} y={22.5 + 18} maxRolls={8} />
+        {autobetOnOff ? <UIText
+          x={changeBetMultiplyX + changeBetButtonSize + margin * 2}
+          y={payoutOnWinY - 8}
+          anchor={{ x: 0, y: 1 }}
+          alpha={0.4}
+          text={tr('autobetCount')}
+          style={{
+            fill: 0xffffff,
+            fontFamily: 'Rajdhani-fnt',
+            fontSize: 16,
+            align: UITextAlign.Left,
+          }}
+        /> : null}
+        {autobetOnOff ? (
+          <AutobetList
+            x={changeBetMultiplyX + changeBetButtonSize + margin * 2}
+            y={payoutOnWinY + changeBetButtonSize / 2}
+            counts={AutobetCounts}
+          />
+        ) : null}
       </UIContainer>
     )
   }
 }
 
 const mapState = state => {
+  const { autobetOnOff } = state
   return {
-    state,
+    autobetOnOff,
     playAction,
     betDivideAction,
     betMultiplyAction,
