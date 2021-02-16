@@ -23,6 +23,7 @@ import { IDice } from './math/IDice'
 import { DiceMock } from './math/DiceMock'
 import { setBalanceAction, setBetLimitsAction } from './reducers/ReducerAction'
 import { DiceBackend } from './math/DiceBackend'
+import { SoundMiddleware } from './middlewares/SoundMiddleware'
 
 interface AppInitOptions {
   isDebug?: boolean
@@ -61,7 +62,10 @@ export class App extends EventEmitter {
 
     console.log('App::init() -', props)
 
-    await this.initEngine(reducer, initialState, [thunk])
+    await this.initEngine(reducer, initialState, [
+      thunk,
+      SoundMiddleware,
+    ])
     await this.initLocal()
     await this.loadResources(ResourcesConfig)
     await this.connectToServer()
@@ -187,9 +191,7 @@ export class App extends EventEmitter {
 
   protected async connectToServer() {
     try {
-      this.gameAPI = this.props.isMock
-        ? new DiceMock()
-        : new DiceBackend()
+      this.gameAPI = this.props.isMock ? new DiceMock() : new DiceBackend()
 
       const { balance, params } = await this.gameAPI.init()
 
