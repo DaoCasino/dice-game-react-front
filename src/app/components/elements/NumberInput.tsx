@@ -23,7 +23,6 @@ export class NumberInput extends Component<any, any> {
           x={15}
           y={this.props.height / 2}
           anchor={{ x: 0, y: 0.5 }}
-          text={this.props.value}
           type={'number'}
           text={text}
           min={'min' in this.props ? this.props.min : 0}
