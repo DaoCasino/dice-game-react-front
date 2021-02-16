@@ -124,7 +124,7 @@ export const autobetStopOnWinInputAction = payload => {
 export const autobetStopOnLoseInputAction = payload => {
   Engine.instance
     .getStore()
-    .dispatch({ type: ReducerAction.AUTOBET_STOP_ON_LOSS_INPUT, payload: payload })
+    .dispatch({ type: ReducerAction.AUTOBET_STOP_ON_LOSE_INPUT, payload: payload })
 }
 
 export const autobetOnWinModeAction = payload => {
