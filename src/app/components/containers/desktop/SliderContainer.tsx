@@ -13,8 +13,7 @@ class SliderContainer extends Component<any, any> {
   render(): JSX.Element {
     const { x, y, width, height, chance, setChanceAction } = this.props
 
-    const margin = 14
-    const totalWidth = width// - margin * 3.5
+    const totalWidth = width
 
     const sliderWidth = totalWidth
 

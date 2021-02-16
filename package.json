@@ -12,7 +12,7 @@
     "start": "npm-run-all --parallel dev:server",
     "start:mock": "cross-env GAME_IS_MOCK=true npm run start",
     "dev:server": "cross-env NODE_ENV='development' BABEL_ENV='development' webpack serve --hot --inline --host 0.0.0.0",
-    "watch": "cross-env BUILD_MODE='development' webpack -w -d",
+    "watch": "cross-env NODE_ENV='development' webpack -w -d",
     "prebuild": "node ./config/prebuild.js",
     "build": "cross-env NODE_ENV='production' BABEL_ENV='production' GENERATE_SOURCEMAP='false' webpack",
     "predeploy": "npm run build",
@@ -22,7 +22,7 @@
   "author": "whilesocold@gmail.com",
   "license": "ISC",
   "dependencies": {
-    "@daocasino/dc-react-gamengine": "^1.0.4",
+    "@daocasino/dc-react-gamengine": "^1.0.5",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "eventemitter3": "^4.0.4",

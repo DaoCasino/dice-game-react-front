@@ -49,7 +49,7 @@ export class App extends EventEmitter {
 
   public async init(
     props: AppInitOptions = {
-      isDebug: process.env.BUILD_MODE === 'development',
+      isDebug: process.env.NODE_ENV === 'development',
       isMock: process.env.GAME_IS_MOCK,
     },
   ): Promise<void> {

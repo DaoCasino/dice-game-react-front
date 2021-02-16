@@ -41,7 +41,7 @@ module.exports = function() {
       isEnvDevelopment && require.resolve('style-loader'),
       isEnvProduction && {
         loader: MiniCssExtractPlugin.loader,
-        // css is located in `public/css`, use '../../' to locate index.html folder
+        // css is located in `static/css`, use '../../' to locate index.html folder
         // in production `paths.publicUrlOrPath` can be a relative path
         options: paths.publicUrlOrPath.startsWith('.')
           ? { publicPath: '../../' }
@@ -118,14 +118,14 @@ module.exports = function() {
       // There will be one main bundle, and one file per asynchronous chunk.
       // In development, it does not produce real files.
       filename: isEnvProduction
-        ? 'public/js/[name].[contenthash:8].js'
-        : isEnvDevelopment && 'public/js/bundle.js',
+        ? 'static/js/[name].[contenthash:8].js'
+        : isEnvDevelopment && 'static/js/bundle.js',
       // TODO: remove this when upgrading to webpack 5
       futureEmitAssets: true,
       // There are also additional JS chunk files if you use code splitting.
       chunkFilename: isEnvProduction
-        ? 'public/js/[name].[contenthash:8].chunk.js'
-        : isEnvDevelopment && 'public/js/[name].chunk.js',
+        ? 'static/js/[name].[contenthash:8].chunk.js'
+        : isEnvDevelopment && 'static/js/[name].chunk.js',
       // webpack uses `publicPath` to determine where the app is being served from.
       // It requires a trailing slash, or the file assets will get an incorrect path.
       // We inferred the "public path" (such as / or /my-project) from homepage.
@@ -240,7 +240,7 @@ module.exports = function() {
               loader: require.resolve('url-loader'),
               options: {
                 limit: imageInlineSizeLimit,
-                name: 'public/media/[name].[hash:8].[ext]',
+                name: 'static/media/[name].[hash:8].[ext]',
               },
             },
 
@@ -350,7 +350,7 @@ module.exports = function() {
               // by webpacks internal loaders.
               exclude: [/\.(js|mjs|jsx|ts|tsx)$/, /\.html$/, /\.json$/],
               options: {
-                name: 'public/media/[name].[hash:8].[ext]',
+                name: 'static/media/[name].[hash:8].[ext]',
               },
             },
           ],
@@ -394,8 +394,8 @@ module.exports = function() {
       new MiniCssExtractPlugin({
         // Options similar to the same options in webpackOptions.output
         // both options are optional
-        filename: 'public/css/[name].[contenthash:8].css',
-        chunkFilename: 'public/css/[name].[contenthash:8].chunk.css',
+        filename: 'static/css/[name].[contenthash:8].css',
+        chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
       }),
 
       // Moment.js is an extremely popular library that bundles large locale files

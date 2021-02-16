@@ -16,5 +16,7 @@
   "stopOnProfit": "STOP ON PROFIT",
   "reset": "RESET",
   "increaseBy": "INCREASE BY",
-  "decreaseBy": "DECREASE BY"
+  "decreaseBy": "DECREASE BY",
+  "tabManualBet": "MANUAL BET",
+  "tabAutoBet": "AUTO BET"
 }

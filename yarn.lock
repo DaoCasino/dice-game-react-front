@@ -904,10 +904,10 @@
   resolved "https://registry.yarnpkg.com/@csstools/normalize.css/-/normalize.css-11.0.1.tgz#31ffab0bff5f4f09551e059359bc1977ac83a974"
   integrity sha512-kUlWZHQkll+lOlYdj7dg8XwziO9WALkfG2dAXLITZMB8gO99CXQBH5W/HleXC3YwWFWXVxe1UClMk/2qsB9oAw==
 
-"@daocasino/dc-react-gamengine@^1.0.4":
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/@daocasino/dc-react-gamengine/-/dc-react-gamengine-1.0.4.tgz#c472bf7dcb36130d08e68ff7d5f8d6aa1230cf50"
-  integrity sha512-GxFPg3Dgoi/cA82mntC2qm5hxZSxjiyQI2elrbMYGcT/7lqMn4XSDgP3jAYXwPuB1WlbwWmTMPMno7WFsDEpVQ==
+"@daocasino/dc-react-gamengine@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@daocasino/dc-react-gamengine/-/dc-react-gamengine-1.0.5.tgz#6cbcbae872e7658d46d464058a7f9c9c98c28fdd"
+  integrity sha512-ScBJGIRwlS0RuTGwQCFLD7UES4Uszo66i2DMBssXzFm2AfM4m1HHSguVo4wGrT4UQt3pwfPZOv/tbZu3MjyHDw==
   dependencies:
     "@daocasino/platform-back-js-lib" "1.7.10"
     "@types/react" "^17.0.0"
