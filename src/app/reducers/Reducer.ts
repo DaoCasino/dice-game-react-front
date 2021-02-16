@@ -9,6 +9,7 @@ export const initialState = {
   profit: undefined,
   number: undefined,
   rolls: [],
+  soundOnOff: true,
 }
 
 export const reducer = (state = initialState, action) => {
@@ -94,6 +95,13 @@ export const reducer = (state = initialState, action) => {
         bet: Math.max(state.betLimits.min, state.bet / 2),
         profit: undefined,
         number: undefined,
+      }
+    }
+
+    case ReducerAction.SOUND_ON_OFF: {
+      return {
+        ...state,
+        soundOnOff: payload,
       }
     }
 

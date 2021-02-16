@@ -11,6 +11,7 @@ export enum ReducerAction {
   BET_MULTIPLY = 'ReducerAction.BET_MULTIPLY',
   BET_DIVIDE = 'ReducerAction.BET_DIVIDE',
   BET_INPUT = 'ReducerAction.BET_INPUT',
+  SOUND_ON_OFF = 'ReducerAction.SOUND_ON_OFF'
 }
 
 export const playAction = () => {
@@ -81,4 +82,10 @@ export const betInputAction = payload => {
   Engine.instance
     .getStore()
     .dispatch({ type: ReducerAction.BET_INPUT, payload: payload })
+}
+
+export const soundOnOffAction = payload => {
+  Engine.instance
+    .getStore()
+    .dispatch({ type: ReducerAction.SOUND_ON_OFF, payload: payload })
 }

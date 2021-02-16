@@ -16,6 +16,16 @@ export const SoundMiddleware = store => next => action => {
     case ReducerAction.PLAY_ERROR:
       Engine.instance.getResourceManager().playSound('lose_mp3')
       break
+
+    case ReducerAction.SOUND_ON_OFF:
+      const soundOnOff = payload
+
+      if (soundOnOff) {
+        Engine.instance.getResourceManager().getSoundManager().unmute()
+      } else {
+        Engine.instance.getResourceManager().getSoundManager().mute()
+      }
+      break
   }
 
   return next(action)
