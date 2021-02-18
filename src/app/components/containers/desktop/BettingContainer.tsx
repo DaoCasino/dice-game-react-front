@@ -10,10 +10,10 @@ import ChangeBetButton from '../../elements/ChangeBetButton'
 import BetAmount from '../../elements/BetAmount'
 import PayoutOnWin from '../../elements/PayoutOnWin'
 import RollList from '../../elements/RollList'
-
-import { autobetStopAction, betDivideAction, betMultiplyAction, playAction } from '../../../reducers/ReducerAction'
 import AutobetList from '../../elements/AutobetList'
-import { AutobetCounts } from '../../../reducers/Reducer'
+
+import { autobetStopAction, betDivideAction, betMultiplyAction, playAction } from '../../../state/reducers/ReducerAction'
+import { AutobetCounts } from '../../../types/AutobetTypes'
 
 class BettingContainer extends Component<any, any> {
   render() {

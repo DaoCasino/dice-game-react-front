@@ -1,6 +1,6 @@
-import { Engine } from '@daocasino/dc-react-gamengine'
 import { playAction, ReducerAction, setAutobetCountAction, setAutobetCounterAction } from '../reducers/ReducerAction'
-import { AutobetCounts } from '../reducers/Reducer'
+import { AutobetCounts } from '../../types/AutobetTypes'
+import { Engine } from '@daocasino/dc-react-gamengine'
 
 let timeoutId = -1
 
@@ -11,8 +11,6 @@ export const AutobetMiddleware = store => next => action => {
   switch (action.type) {
     case ReducerAction.PLAY: {
       const { autobetOnOff, autobetCount, autobetCounter } = state
-
-      console.log(autobetOnOff && autobetCounter)
 
       if (autobetOnOff && autobetCounter === -1) {
         setAutobetCounterAction(autobetCount - 1)

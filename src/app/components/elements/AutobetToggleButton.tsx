@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { TweenMax } from 'gsap'
 
 import { tr, UICircle, UIContainer, UIRectangle, UIText, UITextAlign, Utils } from '@daocasino/dc-react-gamengine'
-import { autobetOnOffAction } from '../../reducers/ReducerAction'
+import { autobetOnOffAction } from '../../state/reducers/ReducerAction'
 
 const AutobetToggleButton = (props): JSX.Element => {
   const { x, y, autobetOnOff } = props

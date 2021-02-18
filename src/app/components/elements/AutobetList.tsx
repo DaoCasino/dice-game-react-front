@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import { UIButton, UIContainer, UIList, UIListStyle, UITextAlign } from '@daocasino/dc-react-gamengine'
-import { setAutobetCountAction } from '../../reducers/ReducerAction'
+import { setAutobetCountAction } from '../../state/reducers/ReducerAction'
 
 const AutobetListItem = (props): JSX.Element => {
   const { width, height, count, selected, interactive } = props

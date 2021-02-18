@@ -3,10 +3,10 @@ import { connect } from 'react-redux'
 
 import { tr, UIContainer, UIText, UITextAlign } from '@daocasino/dc-react-gamengine'
 import { CurrencyInput } from './CurrencyInput'
-import { betInputAction } from '../../reducers/ReducerAction'
+import { betInputAction } from '../../state/reducers/ReducerAction'
 
 const BetAmount = (props): JSX.Element => {
-  const { bet: value, betLimits, balance, isPlaying } = props
+  const { bet: value, betMin, betMax, balance, isPlaying } = props
 
   return (
     <UIContainer x={props.x} y={props.y} interactive={false} buttonMode={false}>
@@ -26,8 +26,8 @@ const BetAmount = (props): JSX.Element => {
       <CurrencyInput
         width={props.width}
         height={props.height}
-        min={betLimits.min}
-        max={Math.min(balance, betLimits.max)}
+        min={betMin}
+        max={Math.min(balance, betMax)}
         value={value}
         disabled={isPlaying}
         onBlur={value => betInputAction(value)}
@@ -37,11 +37,12 @@ const BetAmount = (props): JSX.Element => {
 }
 
 const mapState = (state) => {
-  const { bet, betLimits, balance, isPlaying } = state
+  const { bet, betMin, betMax, balance, isPlaying } = state
 
   return {
     bet,
-    betLimits,
+    betMin,
+    betMax,
     balance,
     isPlaying,
   }

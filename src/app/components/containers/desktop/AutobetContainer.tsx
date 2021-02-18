@@ -11,8 +11,8 @@ import {
   autobetOnWinInputAction,
   autobetStopOnLoseInputAction,
   autobetStopOnWinInputAction,
-} from '../../../reducers/ReducerAction'
-import { AutobetMode } from '../../../reducers/Reducer'
+} from '../../../state/reducers/ReducerAction'
+import { AutobetMode } from '../../../types/AutobetTypes'
 
 class AutobetContainer extends Component<any, any> {
   render() {

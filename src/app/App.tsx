@@ -7,7 +7,7 @@ import thunk from 'redux-thunk'
 import { Store } from 'redux'
 
 import { ResourcesConfig } from './Resources'
-import { initialState, reducer } from './reducers/Reducer'
+import { reducer } from './state/reducers/Reducer'
 
 import {
   CurrencyManager,
@@ -21,10 +21,11 @@ import {
 import Root from './components/Root'
 import { IDice } from './math/IDice'
 import { DiceMock } from './math/DiceMock'
-import { setBalanceAction, setBetLimitsAction } from './reducers/ReducerAction'
+import { setBalanceAction, setBetMax, setBetMin, setPayoutMax } from './state/reducers/ReducerAction'
 import { DiceBackend } from './math/DiceBackend'
-import { SoundMiddleware } from './middlewares/SoundMiddleware'
-import { AutobetMiddleware } from './middlewares/AutobetMiddleware'
+import { SoundMiddleware } from './state/middlewares/SoundMiddleware'
+import { AutobetMiddleware } from './state/middlewares/AutobetMiddleware'
+import { DefaultState } from './state/DefaultState'
 
 interface AppInitOptions {
   isDebug?: boolean
@@ -63,7 +64,7 @@ export class App extends EventEmitter {
 
     console.log('App::init() -', props)
 
-    await this.initEngine(reducer, initialState, [
+    await this.initEngine(reducer, DefaultState, [
       thunk,
       AutobetMiddleware,
       SoundMiddleware,
@@ -198,11 +199,10 @@ export class App extends EventEmitter {
       const { balance, params } = await this.gameAPI.init()
 
       setBalanceAction(balance)
-      setBetLimitsAction({
-        min: parseInt(params[0].value) / 10000,
-        max: parseInt(params[1].value) / 10000,
-        maxPayout: parseInt(params[2].value) / 10000,
-      })
+      setBetMin(parseInt(params[0].value) / 10000)
+      setBetMax(parseInt(params[1].value) / 10000)
+      setPayoutMax(parseInt(params[2].value) / 10000)
+
     } catch (err) {
       console.error(err)
       return Promise.reject(err)

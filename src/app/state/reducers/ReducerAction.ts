@@ -1,5 +1,5 @@
 import { Engine } from '@daocasino/dc-react-gamengine'
-import { App } from '../App'
+import { App } from '../../App'
 
 export enum ReducerAction {
   PLAY = 'ReducerAction.PLAY',
@@ -7,7 +7,9 @@ export enum ReducerAction {
   PLAY_ERROR = 'ReducerAction.PLAY_ERROR',
   SET_CHANCE = 'ReducerAction.SET_CHANCE',
   SET_BALANCE = 'ReducerAction.SET_BALANCE',
-  SET_BET_LIMITS = 'ReducerAction.SET_BET_LIMITS',
+  SET_BET_MIN = 'ReducerAction.SET_BET_MIN',
+  SET_BET_MAX = 'ReducerAction.SET_BET_MAX',
+  SET_PAYOUT_MAX = 'ReducerAction.SET_PAYOUT_MAX',
   BET_MULTIPLY = 'ReducerAction.BET_MULTIPLY',
   BET_DIVIDE = 'ReducerAction.BET_DIVIDE',
   BET_INPUT = 'ReducerAction.BET_INPUT',
@@ -74,10 +76,22 @@ export const setBalanceAction = payload => {
     .dispatch({ type: ReducerAction.SET_BALANCE, payload: payload })
 }
 
-export const setBetLimitsAction = payload => {
+export const setBetMin = payload => {
   Engine.instance
     .getStore()
-    .dispatch({ type: ReducerAction.SET_BET_LIMITS, payload: payload })
+    .dispatch({ type: ReducerAction.SET_BET_MIN, payload: payload })
+}
+
+export const setBetMax = payload => {
+  Engine.instance
+    .getStore()
+    .dispatch({ type: ReducerAction.SET_BET_MAX, payload: payload })
+}
+
+export const setPayoutMax = payload => {
+  Engine.instance
+    .getStore()
+    .dispatch({ type: ReducerAction.SET_PAYOUT_MAX, payload: payload })
 }
 
 export const betMultiplyAction = () => {

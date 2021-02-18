@@ -1,36 +1,8 @@
 import { ReducerAction } from './ReducerAction'
-import { Utils } from '@daocasino/dc-react-gamengine/lib'
+import { DefaultState } from '../DefaultState'
+import { Utils } from '@daocasino/dc-react-gamengine'
 
-export enum AutobetMode {
-  RESET = 'AutobetMode.RESET',
-  INCREASE = 'AutobetMode.INCREASE',
-  DECREASE = 'AutobetMode.DECREASE',
-}
-
-export const AutobetCounts = [5, 10, 25, 50, 0]
-
-export const initialState = {
-  chance: 50,
-  bet: 10,
-  betLimits: { min: 1, max: 0, maxPayout: 0 },
-  balance: 0,
-  isPlaying: false,
-  profit: undefined,
-  number: undefined,
-  rolls: [],
-  soundOnOff: true,
-  autobetCount: -1,
-  autobetCounter: -1,
-  autobetOnOff: false,
-  autobetOnWinMode: AutobetMode.RESET,
-  autobetOnLoseMode: AutobetMode.RESET,
-  autobetOnWin: 0,
-  autobetOnLose: 0,
-  autobetStopOnLose: 0,
-  autobetStopOnWin: 0,
-}
-
-export const reducer = (state = initialState, action) => {
+export const reducer = (state = DefaultState, action) => {
   const payload = action.payload
 
   switch (action.type) {
@@ -77,18 +49,30 @@ export const reducer = (state = initialState, action) => {
         balance: payload,
       }
     }
-    case ReducerAction.SET_BET_LIMITS: {
+    case ReducerAction.SET_BET_MIN: {
       return {
         ...state,
-        betLimits: payload,
+        betMin: payload,
+      }
+    }
+    case ReducerAction.SET_BET_MAX: {
+      return {
+        ...state,
+        betMax: payload,
+      }
+    }
+    case ReducerAction.SET_PAYOUT_MAX: {
+      return {
+        ...state,
+        payoutMax: payload,
       }
     }
     case ReducerAction.BET_INPUT: {
       return {
         ...state,
         bet: Math.min(
-          state.betLimits.max,
-          Math.max(state.betLimits.min, payload)
+          state.betMax,
+          Math.max(state.betMin, payload),
         ),
         profit: undefined,
         number: undefined,
@@ -97,7 +81,7 @@ export const reducer = (state = initialState, action) => {
     case ReducerAction.BET_MULTIPLY: {
       return {
         ...state,
-        bet: Math.min(state.betLimits.max, Utils.formatBet(state.bet * 2)),
+        bet: Math.min(state.betMax, Utils.formatBet(state.bet * 2)),
         profit: undefined,
         number: undefined,
       }
@@ -105,7 +89,7 @@ export const reducer = (state = initialState, action) => {
     case ReducerAction.BET_DIVIDE: {
       return {
         ...state,
-        bet: Math.max(state.betLimits.min, Utils.formatBet(state.bet / 2)),
+        bet: Math.max(state.betMin, Utils.formatBet(state.bet / 2)),
         profit: undefined,
         number: undefined,
       }

@@ -7,7 +7,7 @@ import Payout from '../../elements/Payout'
 import WinChance from '../../elements/WinChance'
 import Slider from '../../elements/Slider'
 
-import { setChanceAction } from '../../../reducers/ReducerAction'
+import { setChanceAction } from '../../../state/reducers/ReducerAction'
 import SoundOnOffButton from '../../elements/SoundOnOffButton'
 
 class SliderContainer extends Component<any, any> {

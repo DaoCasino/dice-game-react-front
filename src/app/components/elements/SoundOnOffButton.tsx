@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import { Engine, UISprite } from '@daocasino/dc-react-gamengine'
-import { soundOnOffAction } from '../../reducers/ReducerAction'
+import { soundOnOffAction } from '../../state/reducers/ReducerAction'
 
 const SoundOnOffButton = (props): JSX.Element => {
   const { x, y, soundOnOff } = props
