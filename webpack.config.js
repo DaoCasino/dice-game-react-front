@@ -138,7 +138,7 @@ module.exports = function() {
       globalObject: 'this',
     },
     optimization: {
-      minimize: isEnvProduction,
+      minimize: false,// isEnvProduction,
       minimizer: [
         // This is only used in production mode
         new TerserPlugin({
@@ -170,8 +170,8 @@ module.exports = function() {
               safari10: true,
             },
             // Added for profiling in devtools
-            keep_classnames: isEnvProductionProfile,
-            keep_fnames: isEnvProductionProfile,
+            keep_classnames: true,// isEnvProductionProfile,
+            keep_fnames: true,// isEnvProductionProfile,
             output: {
               ecma: 5,
               comments: false,
