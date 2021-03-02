@@ -12,7 +12,12 @@ import PayoutOnWin from '../../elements/PayoutOnWin'
 import RollList from '../../elements/RollList'
 import AutobetList from '../../elements/AutobetList'
 
-import { autobetStopAction, betDivideAction, betMultiplyAction, playAction } from '../../../state/reducers/ReducerAction'
+import {
+  autobetStopAction,
+  betDivideAction,
+  betMultiplyAction,
+  playAction,
+} from '../../../state/reducers/ReducerAction'
 import { AutobetCounts } from '../../../types/AutobetTypes'
 
 class BettingContainer extends Component<any, any> {
@@ -70,6 +75,7 @@ class BettingContainer extends Component<any, any> {
             y={height - margin - buttonHeight}
             width={(totalWidth * betMaxButtonWidthPercent) / 100 - margin}
             height={buttonHeight}
+            pointerdown={() => playAction()}
           />
         )}
         {autobetOnOff ? null : (

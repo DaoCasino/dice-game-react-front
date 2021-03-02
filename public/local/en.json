@@ -5,6 +5,8 @@
   "betAmount": "BET AMOUNT",
   "decreaseBetButton": "1 / 2",
   "increaseBetButton": "2x",
+  "minusBetButton": "-",
+  "plusBetButton": "+",
   "rollOver": "ROLL OVER",
   "payout": "PAYOUT",
   "winChance": "WIN CHANCE",

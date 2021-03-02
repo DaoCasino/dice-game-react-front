@@ -11,6 +11,8 @@ export enum ReducerAction {
   SET_BET_MAX = 'ReducerAction.SET_BET_MAX',
   SET_PAYOUT_MAX = 'ReducerAction.SET_PAYOUT_MAX',
   BET_MULTIPLY = 'ReducerAction.BET_MULTIPLY',
+  BET_MINUS = 'ReducerAction.BET_MINUS',
+  BET_PLUS = 'ReducerAction.BET_PLUS',
   BET_DIVIDE = 'ReducerAction.BET_DIVIDE',
   BET_INPUT = 'ReducerAction.BET_INPUT',
   SOUND_ON_OFF = 'ReducerAction.SOUND_ON_OFF',
@@ -100,6 +102,14 @@ export const betMultiplyAction = () => {
 
 export const betDivideAction = () => {
   Engine.instance.getStore().dispatch({ type: ReducerAction.BET_DIVIDE })
+}
+
+export const betMinusAction = () => {
+  Engine.instance.getStore().dispatch({ type: ReducerAction.BET_MINUS })
+}
+
+export const betPlusAction = () => {
+  Engine.instance.getStore().dispatch({ type: ReducerAction.BET_PLUS })
 }
 
 export const betInputAction = payload => {

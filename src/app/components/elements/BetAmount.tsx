@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { tr, UIContainer, UIText, UITextAlign } from '@daocasino/dc-react-gamengine'
 import { CurrencyInput } from './CurrencyInput'
 import { betInputAction } from '../../state/reducers/ReducerAction'
+import { isMobile } from 'mobile-device-detect'
 
 const BetAmount = (props): JSX.Element => {
   const { bet: value, betMin, betMax, balance, isPlaying } = props
@@ -29,7 +30,7 @@ const BetAmount = (props): JSX.Element => {
         min={betMin}
         max={Math.min(balance, betMax)}
         value={value}
-        disabled={isPlaying}
+        disabled={isMobile ? true : isPlaying}
         onBlur={value => betInputAction(value)}
       />
     </UIContainer>

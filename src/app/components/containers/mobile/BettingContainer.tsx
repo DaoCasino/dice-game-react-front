@@ -4,13 +4,29 @@ import { connect } from 'react-redux'
 import {
   tr,
   UIContainer,
+  UIList,
+  UIListStyle,
   UIRectangle,
   UITab,
   UITabContainer,
+  UITabContent,
   UITabType,
   UIText,
   UITextAlign,
 } from '@daocasino/dc-react-gamengine'
+import RollList from '../../elements/RollList'
+import BetAmount from '../../elements/BetAmount'
+import ChangeBetButton from '../../elements/ChangeBetButton'
+import {
+  betDivideAction,
+  betMinusAction,
+  betMultiplyAction,
+  betPlusAction,
+  playAction,
+} from '../../../state/reducers/ReducerAction'
+import PayoutOnWin from '../../elements/PayoutOnWin'
+import PlayButton from '../../elements/PlayButton'
+import BetMaxButton from '../../elements/BetMaxButton'
 
 enum TabType {
   Manual = 'manual',
@@ -21,27 +37,21 @@ class BettingContainer extends Component<any, any> {
   render() {
     const { x, y, width, height, state } = this.props
 
-    const margin = 10
-    const totalWidth = width - margin * 4
+    const margin = 15
+    const totalWidth = width - margin * 2
 
     const buttonHeight = 64
     const changeBetButtonSize = 40
+    const changeButtonMargin = 5
 
-    const rollListX = margin * 2
-    const rollListY = 22.5 + 18
+    const betAmountY = 60
+    const betAmountWidth = totalWidth - ((changeBetButtonSize + changeButtonMargin) * 4)
 
-    const betAmountX = margin * 2
-    const betAmountY = 100
-    const betAmountWidth =
-      totalWidth - margin - (changeBetButtonSize * 2 + margin / 2)
+    const payoutOnWinY = 120
+    const payoutOnWinWidth = totalWidth
 
-    const payoutOnWinX = margin * 2
-    const payoutOnWinY = betAmountY + margin * 4
-    const payoutOnWinWidth = width - margin * 4
-
-    const playButtonX = margin * 2
     const playButtonY = payoutOnWinY + 60
-    const playButtonWidth = betAmountWidth
+    const playButtonWidth = betAmountWidth + (changeBetButtonSize + changeButtonMargin) * 1.5
 
     const payoutOnWinValue = 0
     const betAmountValue = 0
@@ -113,7 +123,69 @@ class BettingContainer extends Component<any, any> {
               }}
             />
           </UITab>
+
+          <UITabContent x={margin} y={tabHeight + 35}>
+            <RollList maxRolls={5} />
+            <BetAmount
+              y={betAmountY}
+              width={betAmountWidth}
+              height={40}
+              value={betAmountValue}
+            />
+            <UIList
+              x={betAmountWidth + changeButtonMargin}
+              y={betAmountY}
+              margin={{ x: changeButtonMargin, y: 0 }}
+              style={UIListStyle.Horizontal}>
+              <ChangeBetButton
+                width={changeBetButtonSize}
+                height={changeBetButtonSize}
+                text={tr('minusBetButton')}
+                pointerdown={() => betMinusAction()}
+              />
+              <ChangeBetButton
+                width={changeBetButtonSize}
+                height={changeBetButtonSize}
+                text={tr('plusBetButton')}
+                pointerdown={() => betPlusAction()}
+              />
+              <ChangeBetButton
+                width={changeBetButtonSize}
+                height={changeBetButtonSize}
+                text={tr('decreaseBetButton')}
+                pointerdown={() => betDivideAction()}
+              />
+              <ChangeBetButton
+                width={changeBetButtonSize}
+                height={changeBetButtonSize}
+                text={tr('increaseBetButton')}
+                pointerdown={() => betMultiplyAction()}
+              />
+            </UIList>
+            <PayoutOnWin
+              y={payoutOnWinY}
+              width={payoutOnWinWidth}
+              height={40}
+              value={payoutOnWinValue}
+            />
+            <PlayButton
+              y={playButtonY}
+              width={playButtonWidth}
+              height={buttonHeight}
+              pointerdown={() => playAction()}
+            />
+            <BetMaxButton
+              x={playButtonWidth + margin}
+              y={playButtonY}
+              width={totalWidth - playButtonWidth - margin}
+              height={buttonHeight}
+              pointerdown={() => playAction()}
+            />
+          </UITabContent>
+
+          <UITabContent x={margin} y={tabHeight + 30}></UITabContent>
         </UITabContainer>
+
         <UIRectangle
           x={0}
           y={tabHeight}
@@ -123,62 +195,6 @@ class BettingContainer extends Component<any, any> {
         />
       </UIContainer>
     )
-
-    /*
-    return (
-      <UIContainer x={x} y={y}>
-        <UIRectangle width={width} height={height} fill={0x1b1b46} />
-        <PlayButton
-          x={playButtonX}
-          y={playButtonY}
-          width={playButtonWidth}
-          height={buttonHeight}
-          pointerdown={() => playAction()}
-        />
-        <BetMaxButton
-          x={playButtonX + playButtonWidth + margin}
-          y={playButtonY}
-          width={totalWidth - playButtonWidth - margin}
-          height={buttonHeight}
-        />
-        <PayoutOnWin
-          x={payoutOnWinX}
-          y={payoutOnWinY}
-          width={payoutOnWinWidth}
-          height={40}
-          value={payoutOnWinValue}
-        />
-        <ChangeBetButton
-          x={betAmountX + betAmountWidth + margin}
-          y={betAmountY}
-          width={changeBetButtonSize}
-          height={changeBetButtonSize}
-          text={tr('decreaseBetButton')}
-          pointerdown={() => betDivideAction()}
-        />
-        <ChangeBetButton
-          x={betAmountX + betAmountWidth + margin + changeBetButtonSize + margin / 2}
-          y={betAmountY}
-          width={changeBetButtonSize}
-          height={changeBetButtonSize}
-          text={tr('increaseBetButton')}
-          pointerdown={() => betMultiplyAction()}
-        />
-        <BetAmount
-          x={betAmountX}
-          y={betAmountY}
-          width={betAmountWidth}
-          height={40}
-          value={betAmountValue}
-        />
-        <RollList
-          x={rollListX}
-          y={rollListY}
-          maxRolls={5}
-        />
-      </UIContainer>
-    )
-     */
   }
 }
 
