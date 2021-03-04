@@ -6,7 +6,10 @@ export const SoundMiddleware = store => next => action => {
 
   switch (action.type) {
     case ReducerAction.PLAY:
-      Engine.instance.getResourceManager().playSound('roll_1_mp3')
+      const sounds = ['roll_1_mp3', 'roll_2_mp3', 'roll_3_mp3']
+      const sound = sounds[Math.floor(Math.random() * sounds.length)]
+
+      Engine.instance.getResourceManager().playSound(sound)
       break
 
     case ReducerAction.PLAY_SUCCESS:

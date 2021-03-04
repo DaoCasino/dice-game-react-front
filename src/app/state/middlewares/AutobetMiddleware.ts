@@ -1,6 +1,5 @@
 import { playAction, ReducerAction, setAutobetCountAction, setAutobetCounterAction } from '../reducers/ReducerAction'
 import { AutobetCounts } from '../../types/AutobetTypes'
-import { Engine } from '@daocasino/dc-react-gamengine'
 
 let timeoutId = -1
 
@@ -16,7 +15,6 @@ export const AutobetMiddleware = store => next => action => {
         setAutobetCounterAction(autobetCount - 1)
       }
 
-      Engine.instance.getResourceManager().playSound('roll_1_mp3')
       break
     }
 
