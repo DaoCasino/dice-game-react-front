@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { isMobile } from 'mobile-device-detect'
+import { isMobile, isTablet } from 'mobile-device-detect'
 
 import { Engine, UIContainer, UIRectangle } from '@daocasino/dc-react-gamengine'
 
@@ -13,23 +13,25 @@ export default class Root extends Component<any, any> {
   state = { width: 0, height: 0 }
 
   updateDimensions = () => {
-    const resolution = Engine.instance.getRenderer().resolution
-    const width = Engine.instance.getRenderer().width / resolution
-    const height = Engine.instance.getRenderer().height / resolution
+    setTimeout(() => {
+      const canvas = Engine.instance.getCanvas()
+      const resolution = Engine.instance.getRenderer().resolution
 
-    this.setState({ width: width, height: height })
+      const width = canvas.width / resolution
+      const height = canvas.height / resolution
+
+      this.setState({ width: width, height: height })
+    }, 50)
   }
 
   componentDidMount(): void {
     this.updateDimensions()
 
     window.addEventListener('resize', this.updateDimensions)
-    window.addEventListener('orientationchange', this.updateDimensions)
   }
 
   componentWillUnmount(): void {
     window.removeEventListener('resize', this.updateDimensions)
-    window.removeEventListener('orientationchange', this.updateDimensions)
   }
 
   getContainersDesktop(width: number, height: number): any {
@@ -103,9 +105,19 @@ export default class Root extends Component<any, any> {
   render(): JSX.Element {
     let { width, height } = this.state
 
-    const container = isMobile ?
+    const container = isMobile && !isTablet ?
       this.getContainersMobile(width, height) :
       this.getContainersDesktop(width, height)
+
+    if (isMobile) {
+      const switchOrientation = document.body.getElementsByClassName('switch-orientation')[0]
+
+      if (isTablet) {
+        switchOrientation.setAttribute('style', width < height ? 'display:block' : 'display:none')
+      } else {
+        switchOrientation.setAttribute('style', width > height ? 'display:block' : 'display:none')
+      }
+    }
 
     return (
       <UIContainer>

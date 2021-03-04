@@ -9,6 +9,8 @@ import { Store } from 'redux'
 import { ResourcesConfig } from './Resources'
 import { reducer } from './state/reducers/Reducer'
 
+import './App.css'
+
 import {
   CurrencyManager,
   Engine,
@@ -71,14 +73,20 @@ export class App extends EventEmitter {
     ])
     await this.initLocal()
     await this.loadResources(ResourcesConfig)
+
+    this.hideLoader()
+
     await this.connectToServer()
     await this.initCurrency()
 
+    const canvas = document.getElementById('canvas')
+
     this.start(<Root />, {
-      view: document.getElementById('canvas'),
+      view: canvas,
       backgroundColor: 0x0e1037,
       resolution: window.devicePixelRatio,
       resizeTo: window,
+      autoDensity: true,
       antialias: true,
     })
   }
@@ -94,6 +102,10 @@ export class App extends EventEmitter {
       this.resourceManager.once(ResourceManagerEvent.Complete, () => resolve())
       this.resourceManager.load()
     })
+  }
+
+  protected hideLoader(): void {
+    document.body.removeChild(document.body.getElementsByClassName('loading')[0])
   }
 
   protected async initEngine(
