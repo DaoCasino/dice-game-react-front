@@ -33,6 +33,14 @@ export default class Root extends Component<any, any> {
   }
 
   getContainersDesktop(width: number, height: number): any {
+    const realWidth = width
+    const realHeight = height
+
+    if (!isMobile) {
+      width = Math.max(Math.min(960, width), 900)
+      height = Math.max(Math.min(520, height), 520)
+    }
+
     const sliderPositionPercent = { x: 0.325, y: 0 }
     const sliderSizePercent = { x: 0.55, y: 0.50 }
 
@@ -44,7 +52,7 @@ export default class Root extends Component<any, any> {
     const autobetLeftMargin = 1
 
     return (
-      <UIContainer>
+      <UIContainer x={(realWidth - width) / 2}>
         <SliderContainerDesktop
           x={width * sliderPositionPercent.x - width * sliderSizePercent.x / 2}
           y={height * sliderPositionPercent.y}
@@ -94,11 +102,6 @@ export default class Root extends Component<any, any> {
 
   render(): JSX.Element {
     let { width, height } = this.state
-
-    if (!isMobile) {
-      width = Math.max(Math.min(960, width), 900)
-      height = Math.max(Math.min(520, height), 520)
-    }
 
     const container = isMobile ?
       this.getContainersMobile(width, height) :
