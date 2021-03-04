@@ -7,7 +7,11 @@ const PlayButton = (props): JSX.Element => {
   const { isPlaying, autobetOnOff, autobetCounter } = props
 
   const isAutobetRunning = autobetOnOff && autobetCounter > -1
-  const interactive = autobetOnOff ? (isAutobetRunning ? true : !isPlaying) : !isPlaying
+  const interactive = autobetOnOff
+    ? isAutobetRunning
+      ? true
+      : !isPlaying
+    : !isPlaying
 
   return (
     <UIButton
@@ -30,21 +34,21 @@ const PlayButton = (props): JSX.Element => {
         pointerdown: props.pointerdown,
       }}
       text={{
-        x: isAutobetRunning ? 20 : props.width / 2,
+        x: props.width / 2,
         y: props.height / 2,
-        anchor: { x: isAutobetRunning ? 0 : 0.5, y: 0.5 },
+        anchor: { x: 0.5, y: 0.5 },
         text: tr(
-          autobetOnOff ?
-            isAutobetRunning
-              ? 'autobetStopButton'
-              : 'autobetStartButton'
-            : 'spinButton',
+          autobetOnOff
+            ? isAutobetRunning
+            ? tr('autobetStopButton') + '     ' + (autobetCounter + 1).toString()
+            : tr('autobetStartButton')
+            : tr('spinButton'),
         ),
         style: {
           fill: 0xffffff,
           fontFamily: 'Rajdhani-Bold-fnt',
           fontSize: 28,
-          align: isAutobetRunning ? UITextAlign.Left : UITextAlign.Center,
+          align: UITextAlign.Center,
         },
       }}
     />
