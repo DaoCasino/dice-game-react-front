@@ -27,6 +27,7 @@ import { setBalanceAction, setBetMax, setBetMin, setPayoutMax } from './state/re
 import { DiceBackend } from './math/DiceBackend'
 import { SoundMiddleware } from './state/middlewares/SoundMiddleware'
 import { AutobetMiddleware } from './state/middlewares/AutobetMiddleware'
+import { VibrateMiddleware } from './state/middlewares/VibrateMiddleware'
 import { DefaultState } from './state/DefaultState'
 
 interface AppInitOptions {
@@ -70,6 +71,7 @@ export class App extends EventEmitter {
       thunk,
       AutobetMiddleware,
       SoundMiddleware,
+      VibrateMiddleware,
     ])
     await this.initLocal()
     await this.loadResources(ResourcesConfig)
