@@ -40,9 +40,11 @@ const PlayButton = (props): JSX.Element => {
         text: tr(
           autobetOnOff
             ? isAutobetRunning
-            ? tr('autobetStopButton') + '     ' + (autobetCounter + 1).toString()
-            : tr('autobetStartButton')
-            : tr('spinButton'),
+              ? tr('autobetStopButton') +
+                '     ' +
+                (autobetCounter + 1).toString()
+              : tr('autobetStartButton')
+            : tr('spinButton')
         ),
         style: {
           fill: 0xffffff,

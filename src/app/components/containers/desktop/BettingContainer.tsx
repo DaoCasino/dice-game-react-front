@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import { tr, UIContainer, UIRectangle, UIText, UITextAlign } from '@daocasino/dc-react-gamengine'
 
-import PlayButton from '../../elements/PlayButton'
+import PlayButton from '../../elements/desktop/PlayButton'
 import BetMaxButton from '../../elements/BetMaxButton'
 import ChangeBetButton from '../../elements/ChangeBetButton'
 
