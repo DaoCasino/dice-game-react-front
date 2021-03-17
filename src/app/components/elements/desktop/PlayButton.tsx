@@ -1,8 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 
-import { Engine, tr, UIButton, UIContainer, UISprite, UITextAlign, Utils } from '@daocasino/dc-react-gamengine'
-import { gsap, TweenMax } from 'gsap'
+import {
+  Engine,
+  tr,
+  UIButton,
+  UIContainer,
+  UISprite,
+  UITextAlign,
+  Utils,
+} from '@daocasino/dc-react-gamengine'
+import { TweenMax } from 'gsap'
 
 const PlayButton = (props): JSX.Element => {
   const { isPlaying, autobetOnOff, autobetCounter } = props
@@ -21,15 +29,17 @@ const PlayButton = (props): JSX.Element => {
     const spritePropsTemp = { rotation: 0 }
 
     if (isPlaying) {
-      setTween(TweenMax.to(spritePropsTemp, 0.5, {
-        rotation: 360,
-        repeat: 20,
-        onUpdate: function() {
-          setSpriteProps({
-            rotation: Utils.remap(this.progress(), 0, 1, 0, 360),
-          })
-        },
-      }))
+      setTween(
+        TweenMax.to(spritePropsTemp, 0.5, {
+          rotation: 360,
+          repeat: 20,
+          onUpdate: function () {
+            setSpriteProps({
+              rotation: Utils.remap(this.progress(), 0, 1, 0, 360),
+            })
+          },
+        })
+      )
     } else {
       if (tween) {
         tween.kill()
@@ -64,13 +74,13 @@ const PlayButton = (props): JSX.Element => {
           text: tr(
             autobetOnOff
               ? isAutobetRunning
-              ? tr('autobetStopButton') +
-              '     ' +
-              (autobetCounter + 1).toString()
-              : tr('autobetStartButton')
+                ? tr('autobetStopButton') +
+                  '     ' +
+                  (autobetCounter + 1).toString()
+                : tr('autobetStartButton')
               : isPlaying
               ? ''
-              : tr('spinButton'),
+              : tr('spinButton')
           ),
           style: {
             fill: 0xffffff,
@@ -80,7 +90,7 @@ const PlayButton = (props): JSX.Element => {
           },
         }}
       />
-      {isPlaying && (
+      {isPlaying && !autobetOnOff && !isAutobetRunning && (
         <UISprite
           x={props.width / 2}
           y={props.height / 2}
