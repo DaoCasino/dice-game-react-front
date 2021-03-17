@@ -4,7 +4,10 @@ import { connect } from 'react-redux'
 import { UIButton, UITextAlign } from '@daocasino/dc-react-gamengine'
 
 const ChangeBetButton = (props): JSX.Element => {
-  const interactive = !props.isPlaying
+  const { autobetOnOff, autobetCounter, isPlaying } = props
+
+  const isAutobetRunning = autobetOnOff && autobetCounter > -1
+  const interactive = !isPlaying && !isAutobetRunning
 
   return (
     <UIButton
@@ -43,12 +46,9 @@ const ChangeBetButton = (props): JSX.Element => {
 }
 
 const mapState = state => {
-  const { isPlaying } = state
+  const { autobetOnOff, autobetCounter, isPlaying } = state
 
-  return {
-    isPlaying,
-  }
+  return { autobetOnOff, autobetCounter, isPlaying }
 }
 
 export default connect(mapState, null)(ChangeBetButton)
-

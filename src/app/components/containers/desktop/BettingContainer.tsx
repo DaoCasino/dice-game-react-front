@@ -10,7 +10,7 @@ import ChangeBetButton from '../../elements/ChangeBetButton'
 import BetAmount from '../../elements/BetAmount'
 import PayoutOnWin from '../../elements/PayoutOnWin'
 import RollList from '../../elements/RollList'
-import AutobetList from '../../elements/AutobetList'
+import AutobetList from '../../elements/desktop/AutobetList'
 
 import {
   autobetStopAction,

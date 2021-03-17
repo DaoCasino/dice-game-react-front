@@ -131,16 +131,80 @@ export const reducer = (state = DefaultState, action) => {
       return { ...state, autobetCounter: payload }
     }
     case ReducerAction.AUTOBET_ON_WIN_INPUT: {
-      return { ...state, autobetOnWin: payload }
+      return { ...state, autobetOnWin: Utils.formatBet(payload) }
+    }
+    case ReducerAction.AUTOBET_ON_WIN_PLUS: {
+      return {
+        ...state,
+        autobetOnWin: Math.min(100, Utils.formatBet(state.autobetOnWin + 1)),
+        profit: undefined,
+        number: undefined,
+      }
+    }
+    case ReducerAction.AUTOBET_ON_WIN_MINUS: {
+      return {
+        ...state,
+        autobetOnWin: Math.max(0, Utils.formatBet(state.autobetOnWin - 1)),
+        profit: undefined,
+        number: undefined,
+      }
     }
     case ReducerAction.AUTOBET_ON_LOSE_INPUT: {
-      return { ...state, autobetOnLose: payload }
+      return { ...state, autobetOnLose: Utils.formatBet(payload) }
+    }
+    case ReducerAction.AUTOBET_ON_LOSE_PLUS: {
+      return {
+        ...state,
+        autobetOnLose: Math.min(100, Utils.formatBet(state.autobetOnLose + 1)),
+        profit: undefined,
+        number: undefined,
+      }
+    }
+    case ReducerAction.AUTOBET_ON_LOSE_MINUS: {
+      return {
+        ...state,
+        autobetOnLose: Math.max(0, Utils.formatBet(state.autobetOnLose - 1)),
+        profit: undefined,
+        number: undefined,
+      }
     }
     case ReducerAction.AUTOBET_STOP_ON_WIN_INPUT: {
-      return { ...state, autobetStopOnWin: payload }
+      return { ...state, autobetStopOnWin: Utils.formatBet(payload) }
+    }
+    case ReducerAction.AUTOBET_STOP_ON_WIN_PLUS: {
+      return {
+        ...state,
+        autobetStopOnWin: Math.min(state.maxPayout, Utils.formatBet(state.autobetStopOnWin + 1)),
+        profit: undefined,
+        number: undefined,
+      }
+    }
+    case ReducerAction.AUTOBET_STOP_ON_WIN_MINUS: {
+      return {
+        ...state,
+        autobetStopOnWin: Math.max(0, Utils.formatBet(state.autobetStopOnWin - 1)),
+        profit: undefined,
+        number: undefined,
+      }
     }
     case ReducerAction.AUTOBET_STOP_ON_LOSE_INPUT: {
-      return { ...state, autobetStopOnLose: payload }
+      return { ...state, autobetStopOnLose: Utils.formatBet(payload) }
+    }
+    case ReducerAction.AUTOBET_STOP_ON_LOSE_PLUS: {
+      return {
+        ...state,
+        autobetStopOnLose: Math.min(state.maxPayout, Utils.formatBet(state.autobetStopOnLose + 1)),
+        profit: undefined,
+        number: undefined,
+      }
+    }
+    case ReducerAction.AUTOBET_STOP_ON_LOSE_MINUS: {
+      return {
+        ...state,
+        autobetStopOnLose: Math.max(0, Utils.formatBet(state.autobetStopOnLose - 1)),
+        profit: undefined,
+        number: undefined,
+      }
     }
     case ReducerAction.AUTOBET_ON_WIN_MODE: {
       return { ...state, autobetOnWinMode: payload }

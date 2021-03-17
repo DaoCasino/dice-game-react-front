@@ -97,6 +97,8 @@ class AutobetContainer extends Component<any, any> {
             width={this.props.width - 25 * 2}
             height={36}
             text={autobetOnLose}
+            min={0}
+            max={100}
             disabled={!autobetOnOff}
             onBlur={value => autobetOnLoseInputAction(value)}
           />

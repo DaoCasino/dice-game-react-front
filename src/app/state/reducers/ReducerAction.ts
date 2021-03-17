@@ -23,9 +23,17 @@ export enum ReducerAction {
   AUTOBET_ON_WIN_MODE = 'ReducerAction.AUTOBET_ON_WIN_MODE',
   AUTOBET_ON_LOSE_MODE = 'ReducerAction.AUTOBET_ON_LOSE_MODE',
   AUTOBET_ON_WIN_INPUT = 'ReducerAction.AUTOBET_ON_WIN_INPUT',
+  AUTOBET_ON_WIN_MINUS = 'ReducerAction.AUTOBET_ON_WIN_MINUS',
+  AUTOBET_ON_WIN_PLUS = 'ReducerAction.AUTOBET_ON_WIN_PLUS',
   AUTOBET_ON_LOSE_INPUT = 'ReducerAction.AUTOBET_ON_LOSE_INPUT',
+  AUTOBET_ON_LOSE_MINUS = 'ReducerAction.AUTOBET_ON_LOSE_MINUS',
+  AUTOBET_ON_LOSE_PLUS = 'ReducerAction.AUTOBET_ON_LOSE_PLUS',
   AUTOBET_STOP_ON_WIN_INPUT = 'ReducerAction.AUTOBET_STOP_ON_WIN_INPUT',
+  AUTOBET_STOP_ON_WIN_MINUS = 'ReducerAction.AUTOBET_STOP_ON_WIN_MINUS',
+  AUTOBET_STOP_ON_WIN_PLUS = 'ReducerAction.AUTOBET_STOP_ON_WIN_PLUS',
   AUTOBET_STOP_ON_LOSE_INPUT = 'ReducerAction.AUTOBET_STOP_ON_LOSE_INPUT',
+  AUTOBET_STOP_ON_LOSE_MINUS = 'ReducerAction.AUTOBET_STOP_ON_LOSE_MINUS',
+  AUTOBET_STOP_ON_LOSE_PLUS = 'ReducerAction.AUTOBET_STOP_ON_LOSE_PLUS',
 }
 
 export const playAction = () => {
@@ -155,10 +163,34 @@ export const autobetOnWinInputAction = payload => {
     .dispatch({ type: ReducerAction.AUTOBET_ON_WIN_INPUT, payload: payload })
 }
 
+export const autobetOnWinMinusAction = () => {
+  Engine.instance
+    .getStore()
+    .dispatch({ type: ReducerAction.AUTOBET_ON_WIN_MINUS })
+}
+
+export const autobetOnWinPlusAction = () => {
+  Engine.instance
+    .getStore()
+    .dispatch({ type: ReducerAction.AUTOBET_ON_WIN_PLUS })
+}
+
 export const autobetOnLoseInputAction = payload => {
   Engine.instance
     .getStore()
     .dispatch({ type: ReducerAction.AUTOBET_ON_LOSE_INPUT, payload: payload })
+}
+
+export const autobetOnLoseMinusAction = () => {
+  Engine.instance
+    .getStore()
+    .dispatch({ type: ReducerAction.AUTOBET_ON_LOSE_MINUS })
+}
+
+export const autobetOnLosePlusAction = () => {
+  Engine.instance
+    .getStore()
+    .dispatch({ type: ReducerAction.AUTOBET_ON_LOSE_PLUS })
 }
 
 export const autobetStopOnWinInputAction = payload => {
@@ -170,6 +202,18 @@ export const autobetStopOnWinInputAction = payload => {
     })
 }
 
+export const autobetStopOnWinMinusAction = () => {
+  Engine.instance
+    .getStore()
+    .dispatch({ type: ReducerAction.AUTOBET_STOP_ON_WIN_MINUS })
+}
+
+export const autobetStopOnWinPlusAction = () => {
+  Engine.instance
+    .getStore()
+    .dispatch({ type: ReducerAction.AUTOBET_STOP_ON_WIN_PLUS })
+}
+
 export const autobetStopOnLoseInputAction = payload => {
   Engine.instance
     .getStore()
@@ -177,6 +221,18 @@ export const autobetStopOnLoseInputAction = payload => {
       type: ReducerAction.AUTOBET_STOP_ON_LOSE_INPUT,
       payload: payload,
     })
+}
+
+export const autobetStopOnLoseMinusAction = () => {
+  Engine.instance
+    .getStore()
+    .dispatch({ type: ReducerAction.AUTOBET_STOP_ON_LOSE_MINUS })
+}
+
+export const autobetStopOnLosePlusAction = () => {
+  Engine.instance
+    .getStore()
+    .dispatch({ type: ReducerAction.AUTOBET_STOP_ON_LOSE_PLUS })
 }
 
 export const autobetOnWinModeAction = payload => {

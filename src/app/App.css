@@ -11,12 +11,14 @@ input[type='number'] {
 
 html, body {
     height: 100%;
+    overflow: hidden;
 }
 
 body {
     margin: 0;
     display: grid;
     grid-template-rows: 1fr;
+    overflow: hidden;
 }
 
 canvas {

@@ -7,6 +7,7 @@ import {
   UIList,
   UIListStyle,
   UIRectangle,
+  UIScrollContainer,
   UITab,
   UITabContainer,
   UITabContent,
@@ -18,7 +19,20 @@ import RollList from '../../elements/RollList'
 import BetAmount from '../../elements/BetAmount'
 import ChangeBetButton from '../../elements/ChangeBetButton'
 import {
+  autobetOnLoseInputAction,
+  autobetOnLoseMinusAction,
+  autobetOnLosePlusAction,
+  autobetOnOffAction,
+  autobetOnWinInputAction,
+  autobetOnWinMinusAction,
+  autobetOnWinPlusAction,
   autobetStopAction,
+  autobetStopOnLoseInputAction,
+  autobetStopOnLoseMinusAction,
+  autobetStopOnLosePlusAction,
+  autobetStopOnWinInputAction,
+  autobetStopOnWinMinusAction,
+  autobetStopOnWinPlusAction,
   betDivideAction,
   betMinusAction,
   betMultiplyAction,
@@ -26,8 +40,13 @@ import {
   playAction,
 } from '../../../state/reducers/ReducerAction'
 import PayoutOnWin from '../../elements/PayoutOnWin'
-import PlayButton from '../../elements/mobile/PlayButton'
+import PlayButton from '../../elements/desktop/PlayButton'
 import BetMaxButton from '../../elements/BetMaxButton'
+import AutobetList from '../../elements/mobile/AutobetList'
+import { TripleSelectButton } from '../../elements/TripleSelectButton'
+import { NumberInput } from '../../elements/NumberInput'
+
+import { AutobetCounts, AutobetMode } from '../../../types/AutobetTypes'
 
 enum TabType {
   Manual = 'manual',
@@ -44,8 +63,23 @@ class BettingContainer extends Component<any, any> {
   }
 
   render() {
-    const { x, y, width, height, isAutobetRunning } = this.props
+    const {
+      x,
+      y,
+      width,
+      height,
+      autobetOnOff,
+      autobetCounter,
+      autobetOnWin,
+      autobetOnWinMode,
+      autobetOnLose,
+      autobetOnLoseMode,
+      autobetStopOnWin,
+      autobetStopOnLose,
+    } = this.props
     const { currentTab } = this.state
+
+    const isAutobetRunning = autobetOnOff && autobetCounter > -1
 
     const margin = 15
     const totalWidth = width - margin * 2
@@ -70,12 +104,18 @@ class BettingContainer extends Component<any, any> {
 
     const tabHeight = 45
 
-    console.log(currentTab)
-
     return (
       <UIContainer x={x} y={y}>
         <UIRectangle width={width} height={height} fill={0x1b1b46} />
-        <UITabContainer onSelect={type => this.setState({ currentTab: type })}>
+        <UITabContainer
+          defaultTab={0}
+          interactive={!isAutobetRunning}
+          onSelect={type => {
+            if (!isAutobetRunning) {
+              autobetOnOffAction(type === TabType.Auto)
+              this.setState({ currentTab: type })
+            }
+          }}>
           <UITab key={TabType.Manual} selected={currentTab === TabType.Manual}>
             <UIText
               key={UITabType.Default}
@@ -110,7 +150,10 @@ class BettingContainer extends Component<any, any> {
           <UITab
             key={TabType.Auto}
             selected={currentTab === TabType.Auto}
-            onSelect={type => this.setState({ currentTab: type })}>
+            onSelect={type => {
+              autobetOnOffAction(true)
+              this.setState({ currentTab: type })
+            }}>
             <UIText
               key={'default'}
               x={width - width / 4}
@@ -201,15 +244,271 @@ class BettingContainer extends Component<any, any> {
           </UITabContent>
 
           <UITabContent x={margin} y={tabHeight + 35}>
-            <RollList maxRolls={5} />
-            <PlayButton
-              y={35}
-              width={totalWidth}
-              height={buttonHeight}
-              pointerdown={() =>
-                isAutobetRunning ? autobetStopAction() : playAction()
-              }
-            />
+            <UIScrollContainer
+              mask={{
+                x: 0,
+                y: y + tabHeight,
+                width: width,
+                height: height - tabHeight,
+              }}>
+              <UIRectangle
+                y={0}
+                width={totalWidth}
+                height={775}
+                fill={0x1b1b46}
+              />
+              <RollList maxRolls={5} />
+              <PlayButton
+                y={35}
+                width={totalWidth}
+                height={buttonHeight}
+                pointerdown={() =>
+                  isAutobetRunning ? autobetStopAction() : playAction()
+                }
+              />
+              <BetAmount
+                y={140}
+                width={totalWidth}
+                height={changeBetButtonSize}
+                value={betAmountValue}
+              />
+              <UIText
+                y={220}
+                anchor={{ x: 0, y: 1 }}
+                alpha={0.4}
+                text={tr('autobetCount')}
+                style={{
+                  fill: 0xffffff,
+                  fontFamily: 'Rajdhani-fnt',
+                  fontSize: 16,
+                  align: UITextAlign.Left,
+                }}
+              />
+              <AutobetList width={totalWidth} y={250} counts={AutobetCounts} />
+              <UIText
+                y={315}
+                key={'onWinLabel'}
+                anchor={{ x: 0, y: 1 }}
+                alpha={0.4}
+                text={tr('onWin')}
+                style={{
+                  fill: 0xffffff,
+                  fontFamily: 'Rajdhani-fnt',
+                  fontSize: 16,
+                  align: UITextAlign.Left,
+                }}
+              />
+              <TripleSelectButton
+                y={330}
+                key={'onWinButton'}
+                width={totalWidth}
+                height={36}
+                index={Object.values(AutobetMode).indexOf(autobetOnWinMode)}
+                disabled={isAutobetRunning}
+              />
+              <NumberInput
+                y={385}
+                width={
+                  totalWidth - (changeBetButtonSize + changeButtonMargin) * 2
+                }
+                height={changeBetButtonSize}
+                text={autobetOnWin}
+                min={0}
+                max={100}
+                disabled={true}
+                onBlur={value => autobetOnWinInputAction(value)}
+              />
+              <ChangeBetButton
+                x={
+                  totalWidth -
+                  (changeBetButtonSize + changeButtonMargin) * 2 +
+                  5
+                }
+                y={385}
+                width={changeBetButtonSize}
+                height={changeBetButtonSize}
+                text={tr('minusBetButton')}
+                pointerdown={() => autobetOnWinMinusAction()}
+              />
+              <ChangeBetButton
+                x={
+                  totalWidth -
+                  (changeBetButtonSize + changeButtonMargin) * 2 +
+                  5 +
+                  changeBetButtonSize +
+                  5
+                }
+                y={385}
+                width={changeBetButtonSize}
+                height={changeBetButtonSize}
+                text={tr('plusBetButton')}
+                pointerdown={() => autobetOnWinPlusAction()}
+              />
+
+              <UIText
+                y={455}
+                key={'onLoseLabel'}
+                anchor={{ x: 0, y: 1 }}
+                alpha={0.4}
+                text={tr('onLose')}
+                style={{
+                  fill: 0xffffff,
+                  fontFamily: 'Rajdhani-fnt',
+                  fontSize: 16,
+                  align: UITextAlign.Left,
+                }}
+              />
+              <TripleSelectButton
+                y={470}
+                key={'onLoseButton'}
+                width={totalWidth}
+                height={36}
+                index={Object.values(AutobetMode).indexOf(autobetOnLoseMode)}
+                disabled={isAutobetRunning}
+              />
+              <NumberInput
+                y={525}
+                width={
+                  totalWidth - (changeBetButtonSize + changeButtonMargin) * 2
+                }
+                height={changeBetButtonSize}
+                text={autobetOnLose}
+                min={0}
+                max={100}
+                disabled={true}
+                onBlur={value => autobetOnLoseInputAction(value)}
+              />
+              <ChangeBetButton
+                x={
+                  totalWidth -
+                  (changeBetButtonSize + changeButtonMargin) * 2 +
+                  5
+                }
+                y={525}
+                width={changeBetButtonSize}
+                height={changeBetButtonSize}
+                text={tr('minusBetButton')}
+                pointerdown={() => autobetOnLoseMinusAction()}
+              />
+              <ChangeBetButton
+                x={
+                  totalWidth -
+                  (changeBetButtonSize + changeButtonMargin) * 2 +
+                  5 +
+                  changeBetButtonSize +
+                  5
+                }
+                y={525}
+                width={changeBetButtonSize}
+                height={changeBetButtonSize}
+                text={tr('plusBetButton')}
+                pointerdown={() => autobetOnLosePlusAction()}
+              />
+
+              <UIText
+                y={580}
+                key={'stopOnProfitLabel'}
+                anchor={{ x: 0, y: 0 }}
+                alpha={0.4}
+                text={tr('stopOnProfit')}
+                style={{
+                  fill: 0xffffff,
+                  fontFamily: 'Rajdhani-fnt',
+                  fontSize: 16,
+                  align: UITextAlign.Left,
+                }}
+              />
+              <NumberInput
+                y={605}
+                width={
+                  totalWidth - (changeBetButtonSize + changeButtonMargin) * 2
+                }
+                height={changeBetButtonSize}
+                text={autobetStopOnWin}
+                min={0}
+                max={100}
+                disabled={true}
+                onBlur={value => autobetStopOnWinInputAction(value)}
+              />
+              <ChangeBetButton
+                x={
+                  totalWidth -
+                  (changeBetButtonSize + changeButtonMargin) * 2 +
+                  5
+                }
+                y={605}
+                width={changeBetButtonSize}
+                height={changeBetButtonSize}
+                text={tr('minusBetButton')}
+                pointerdown={() => autobetStopOnWinMinusAction()}
+              />
+              <ChangeBetButton
+                x={
+                  totalWidth -
+                  (changeBetButtonSize + changeButtonMargin) * 2 +
+                  5 +
+                  changeBetButtonSize +
+                  5
+                }
+                y={605}
+                width={changeBetButtonSize}
+                height={changeBetButtonSize}
+                text={tr('plusBetButton')}
+                pointerdown={() => autobetStopOnWinPlusAction()}
+              />
+
+              <UIText
+                y={660}
+                key={'stopOnLoseLabel'}
+                anchor={{ x: 0, y: 0 }}
+                alpha={0.4}
+                text={tr('stopOnLose')}
+                style={{
+                  fill: 0xffffff,
+                  fontFamily: 'Rajdhani-fnt',
+                  fontSize: 16,
+                  align: UITextAlign.Left,
+                }}
+              />
+              <NumberInput
+                y={685}
+                width={
+                  totalWidth - (changeBetButtonSize + changeButtonMargin) * 2
+                }
+                height={changeBetButtonSize}
+                text={autobetStopOnLose}
+                min={0}
+                max={100}
+                disabled={true}
+                onBlur={value => autobetStopOnLoseInputAction(value)}
+              />
+              <ChangeBetButton
+                x={
+                  totalWidth -
+                  (changeBetButtonSize + changeButtonMargin) * 2 +
+                  5
+                }
+                y={685}
+                width={changeBetButtonSize}
+                height={changeBetButtonSize}
+                text={tr('minusBetButton')}
+                pointerdown={() => autobetStopOnLoseMinusAction()}
+              />
+              <ChangeBetButton
+                x={
+                  totalWidth -
+                  (changeBetButtonSize + changeButtonMargin) * 2 +
+                  5 +
+                  changeBetButtonSize +
+                  5
+                }
+                y={685}
+                width={changeBetButtonSize}
+                height={changeBetButtonSize}
+                text={tr('plusBetButton')}
+                pointerdown={() => autobetStopOnLosePlusAction()}
+              />
+            </UIScrollContainer>
           </UITabContent>
         </UITabContainer>
 
@@ -226,10 +525,26 @@ class BettingContainer extends Component<any, any> {
 }
 
 const mapState = state => {
-  const { isAutobetRunning } = state
+  const {
+    autobetOnOff,
+    autobetCounter,
+    autobetOnWin,
+    autobetOnWinMode,
+    autobetOnLose,
+    autobetOnLoseMode,
+    autobetStopOnWin,
+    autobetStopOnLose,
+  } = state
 
   return {
-    isAutobetRunning,
+    autobetOnOff,
+    autobetCounter,
+    autobetOnWin,
+    autobetOnWinMode,
+    autobetOnLose,
+    autobetOnLoseMode,
+    autobetStopOnWin,
+    autobetStopOnLose,
   }
 }
 
