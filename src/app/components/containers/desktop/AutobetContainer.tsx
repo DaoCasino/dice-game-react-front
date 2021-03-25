@@ -8,7 +8,9 @@ import { CurrencyInput } from '../../elements/CurrencyInput'
 import AutobetToggleButton from '../../elements/AutobetToggleButton'
 import {
   autobetOnLoseInputAction,
+  autobetOnLoseModeAction,
   autobetOnWinInputAction,
+  autobetOnWinModeAction,
   autobetStopOnLoseInputAction,
   autobetStopOnWinInputAction,
 } from '../../../state/reducers/ReducerAction'
@@ -21,6 +23,7 @@ class AutobetContainer extends Component<any, any> {
       y,
       width,
       height,
+      autobetCounter,
       autobetOnOff,
       autobetOnWin,
       autobetOnLose,
@@ -29,6 +32,8 @@ class AutobetContainer extends Component<any, any> {
       autobetOnWinMode,
       autobetOnLoseMode,
     } = this.props
+
+    const isAutobetRunning = !autobetOnOff || (autobetOnOff && autobetCounter > -1)
 
     return (
       <UIContainer x={x} y={y}>
@@ -63,7 +68,8 @@ class AutobetContainer extends Component<any, any> {
             width={this.props.width - 25 * 2}
             height={36}
             index={Object.values(AutobetMode).indexOf(autobetOnWinMode)}
-            disabled={!autobetOnOff}
+            disabled={isAutobetRunning}
+            onChange={index => autobetOnWinModeAction(Object.values(AutobetMode)[index])}
           />
           <NumberInput
             width={this.props.width - 25 * 2}
@@ -71,7 +77,7 @@ class AutobetContainer extends Component<any, any> {
             text={autobetOnWin}
             min={0}
             max={100}
-            disabled={!autobetOnOff}
+            disabled={isAutobetRunning}
             onBlur={value => autobetOnWinInputAction(value)}
           />
           <UIText
@@ -91,7 +97,8 @@ class AutobetContainer extends Component<any, any> {
             width={this.props.width - 25 * 2}
             height={36}
             index={Object.values(AutobetMode).indexOf(autobetOnLoseMode)}
-            disabled={!autobetOnOff}
+            disabled={isAutobetRunning}
+            onChange={index => autobetOnLoseModeAction(Object.values(AutobetMode)[index])}
           />
           <NumberInput
             width={this.props.width - 25 * 2}
@@ -99,7 +106,7 @@ class AutobetContainer extends Component<any, any> {
             text={autobetOnLose}
             min={0}
             max={100}
-            disabled={!autobetOnOff}
+            disabled={isAutobetRunning}
             onBlur={value => autobetOnLoseInputAction(value)}
           />
           <UIText
@@ -118,7 +125,7 @@ class AutobetContainer extends Component<any, any> {
             width={this.props.width - 25 * 2}
             height={36}
             text={autobetStopOnWin}
-            disabled={!autobetOnOff}
+            disabled={isAutobetRunning}
             onBlur={value => autobetStopOnWinInputAction(value)}
           />
           <UIText
@@ -137,7 +144,7 @@ class AutobetContainer extends Component<any, any> {
             width={this.props.width - 25 * 2}
             height={36}
             text={autobetStopOnLose}
-            disabled={!autobetOnOff}
+            disabled={isAutobetRunning}
             onBlur={value => autobetStopOnLoseInputAction(value)}
           />
         </UIList>
@@ -148,6 +155,7 @@ class AutobetContainer extends Component<any, any> {
 
 const mapState = state => {
   const {
+    autobetCounter,
     autobetOnOff,
     autobetOnWin,
     autobetOnLose,
@@ -158,6 +166,7 @@ const mapState = state => {
   } = state
 
   return {
+    autobetCounter,
     autobetOnOff,
     autobetOnWin,
     autobetOnLose,

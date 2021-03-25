@@ -21,10 +21,12 @@ import ChangeBetButton from '../../elements/ChangeBetButton'
 import {
   autobetOnLoseInputAction,
   autobetOnLoseMinusAction,
+  autobetOnLoseModeAction,
   autobetOnLosePlusAction,
   autobetOnOffAction,
   autobetOnWinInputAction,
   autobetOnWinMinusAction,
+  autobetOnWinModeAction,
   autobetOnWinPlusAction,
   autobetStopAction,
   autobetStopOnLoseInputAction,
@@ -305,6 +307,7 @@ class BettingContainer extends Component<any, any> {
                 height={36}
                 index={Object.values(AutobetMode).indexOf(autobetOnWinMode)}
                 disabled={isAutobetRunning}
+                onChange={index => autobetOnWinModeAction(Object.values(AutobetMode)[index])}
               />
               <NumberInput
                 y={385}
@@ -365,6 +368,7 @@ class BettingContainer extends Component<any, any> {
                 height={36}
                 index={Object.values(AutobetMode).indexOf(autobetOnLoseMode)}
                 disabled={isAutobetRunning}
+                onChange={index => autobetOnLoseModeAction(Object.values(AutobetMode)[index])}
               />
               <NumberInput
                 y={525}

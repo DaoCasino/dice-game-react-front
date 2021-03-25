@@ -64,6 +64,14 @@ export const TripleSelectButton = (props): JSX.Element => {
 
   const elementWidth = props.width / 3
 
+  const onChangeIndex = (index: number) => {
+    setIndex(index)
+
+    if (props.onChange) {
+      props.onChange(index)
+    }
+  }
+
   return (
     <UIContainer
       width={props.width}
@@ -93,7 +101,7 @@ export const TripleSelectButton = (props): JSX.Element => {
         visible: index == 0,
         buttonMode: !props.disabled,
         interactive: !props.disabled,
-        pointerdown: () => setIndex(0),
+        pointerdown: () => onChangeIndex(0),
       })}
       {createText({
         key: 'increaseByLabel',
@@ -109,7 +117,7 @@ export const TripleSelectButton = (props): JSX.Element => {
         visible: index == 1,
         buttonMode: !props.disabled,
         interactive: !props.disabled,
-        pointerdown: () => setIndex(1),
+        pointerdown: () => onChangeIndex(1),
       })}
       {createText({
         key: 'decreaseByLabel',
@@ -125,7 +133,7 @@ export const TripleSelectButton = (props): JSX.Element => {
         visible: index == 2,
         buttonMode: !props.disabled,
         interactive: !props.disabled,
-        pointerdown: () => setIndex(2),
+        pointerdown: () => onChangeIndex(2),
       })}
     </UIContainer>
   )

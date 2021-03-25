@@ -53,12 +53,6 @@ export const AutobetMiddleware = store => next => action => {
       }
       break
     }
-
-    case ReducerAction.AUTOBET_COUNTER: {
-      const autobetCounter = payload
-
-      break
-    }
   }
 
   return next(action)

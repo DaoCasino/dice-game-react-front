@@ -29,6 +29,7 @@ import { SoundMiddleware } from './state/middlewares/SoundMiddleware'
 import { AutobetMiddleware } from './state/middlewares/AutobetMiddleware'
 import { VibrateMiddleware } from './state/middlewares/VibrateMiddleware'
 import { DefaultState } from './state/DefaultState'
+import { AutobetChangeMiddleware } from './state/middlewares/AutobetChangeMiddlware'
 
 interface AppInitOptions {
   isDebug?: boolean
@@ -69,6 +70,7 @@ export class App extends EventEmitter {
 
     await this.initEngine(reducer, DefaultState, [
       thunk,
+      AutobetChangeMiddleware,
       AutobetMiddleware,
       SoundMiddleware,
       VibrateMiddleware,
