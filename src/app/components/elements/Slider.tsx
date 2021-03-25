@@ -11,6 +11,7 @@ import {
   UITilingSprite,
   Utils,
 } from '@daocasino/dc-react-gamengine'
+import { Container } from 'react-pixi-fiber'
 
 class SliderStep extends Component<any, any> {
   static propTypes = {
@@ -65,6 +66,7 @@ class SliderStep extends Component<any, any> {
 class Slider extends Component<any, any> {
   protected draggingData: any
   protected dragging: boolean
+  protected ref: any
 
   componentDidMount() {
     this.dragging = false
@@ -170,7 +172,7 @@ class Slider extends Component<any, any> {
     const rightWidth = width - leftWidth
 
     return (
-      <UIContainer x={x} y={y}>
+      <Container ref={ref => this.ref = ref} x={x} y={y}>
         {showSteps ? this.renderSteps(value) : null}
         {profit !== undefined && number !== undefined
           ? this.renderIndicator(
@@ -232,13 +234,14 @@ class Slider extends Component<any, any> {
           pointermove={e => {
             if (this.dragging) {
               const globalPosition = this.draggingData.global
+              const local = this.ref.toLocal(globalPosition)
 
               const handleWidth = 44
 
-              const min = this.props.x // + handleWidth / 2
-              const max = this.props.x + leftWidth + rightWidth + handleWidth
+              const min = handleWidth / 2
+              const max = leftWidth + rightWidth - handleWidth / 2
 
-              const x = Math.max(min, Math.min(max, globalPosition.x))
+              const x = Math.max(handleWidth / 2, Math.min(width - handleWidth / 2, local.x))
 
               let value = Utils.remap(
                 x,
@@ -277,7 +280,7 @@ class Slider extends Component<any, any> {
             fontSize: 20,
           }}
         />
-      </UIContainer>
+      </Container>
     )
   }
 }
