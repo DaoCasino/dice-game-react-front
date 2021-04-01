@@ -12,6 +12,7 @@ export const DefaultState = {
   number: undefined,
   rolls: [],
   soundOnOff: true,
+  autobetStartBalance: 0,
   autobetCount: -1,
   autobetCounter: -1,
   autobetOnOff: false,

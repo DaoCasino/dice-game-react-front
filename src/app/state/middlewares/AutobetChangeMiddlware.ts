@@ -13,6 +13,7 @@ export const AutobetChangeMiddleware = store => next => action => {
         bet,
         betMin,
         betMax,
+        autobetStartBalance,
         autobetOnWin,
         autobetOnLose,
         autobetOnWinMode,
@@ -21,53 +22,54 @@ export const AutobetChangeMiddleware = store => next => action => {
         autobetStopOnLose,
       } = state
 
-      if (profit > 0) {
-        if (autobetStopOnWin > 0 && profit >= autobetStopOnWin) {
-          autobetStopAction()
-        } else {
-          switch (autobetOnWinMode) {
-            case AutobetMode.INCREASE:
-              betInputAction(
-                Math.min(
-                  balance,
-                  parseFloat((bet + (bet * autobetOnWin) / 100).toFixed(4))
-                )
-              )
-              break
+      const balanceDiff = autobetStartBalance > 0 ? balance - autobetStartBalance : 0
 
-            case AutobetMode.DECREASE:
-              betInputAction(
-                Math.max(
-                  betMin,
-                  parseFloat((bet - (bet * autobetOnWin) / 100).toFixed(4))
-                )
-              )
-              break
-          }
+      if (autobetStopOnWin > 0 && balanceDiff > 0 && balanceDiff >= autobetStopOnWin) {
+        autobetStopAction()
+      }
+      if (autobetStopOnLose > 0 && balanceDiff < 0 && Math.abs(balanceDiff) >= autobetStopOnLose) {
+        autobetStopAction()
+      }
+
+      if (profit > 0) {
+        switch (autobetOnWinMode) {
+          case AutobetMode.INCREASE:
+            betInputAction(
+              Math.min(
+                balance,
+                parseFloat((bet + (bet * autobetOnWin) / 100).toFixed(4)),
+              ),
+            )
+            break
+
+          case AutobetMode.DECREASE:
+            betInputAction(
+              Math.max(
+                betMin,
+                parseFloat((bet - (bet * autobetOnWin) / 100).toFixed(4)),
+              ),
+            )
+            break
         }
       } else {
-        if (autobetStopOnLose > 0 && Math.abs(profit) >= autobetStopOnLose) {
-          autobetStopAction()
-        } else {
-          switch (autobetOnLoseMode) {
-            case AutobetMode.INCREASE:
-              betInputAction(
-                Math.min(
-                  balance,
-                  parseFloat((bet + (bet * autobetOnLose) / 100).toFixed(2))
-                )
-              )
-              break
+        switch (autobetOnLoseMode) {
+          case AutobetMode.INCREASE:
+            betInputAction(
+              Math.min(
+                balance,
+                parseFloat((bet + (bet * autobetOnLose) / 100).toFixed(2)),
+              ),
+            )
+            break
 
-            case AutobetMode.DECREASE:
-              betInputAction(
-                Math.max(
-                  betMin,
-                  parseFloat((bet - (bet * autobetOnLose) / 100).toFixed(2))
-                )
-              )
-              break
-          }
+          case AutobetMode.DECREASE:
+            betInputAction(
+              Math.max(
+                betMin,
+                parseFloat((bet - (bet * autobetOnLose) / 100).toFixed(2)),
+              ),
+            )
+            break
         }
       }
       break

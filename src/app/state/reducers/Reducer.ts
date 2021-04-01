@@ -15,16 +15,19 @@ export const reducer = (state = DefaultState, action) => {
       }
     }
     case ReducerAction.PLAY_SUCCESS: {
+      const { number, profit } = payload
+
       state.rolls.push({
-        number: payload.number,
-        profit: payload.profit,
+        number: number,
+        profit: profit,
       })
 
       return {
         ...state,
         isPlaying: false,
-        profit: payload.profit,
-        number: payload.number,
+        profit: profit,
+        number: number,
+        balance: state.balance + profit,
       }
     }
     case ReducerAction.PLAY_ERROR: {
@@ -117,6 +120,7 @@ export const reducer = (state = DefaultState, action) => {
       return {
         ...state,
         autobetCounter: -1,
+        autobetStartBalance: 0,
         profit: undefined,
         number: undefined,
       }
@@ -128,7 +132,7 @@ export const reducer = (state = DefaultState, action) => {
       return { ...state, autobetCount: payload }
     }
     case ReducerAction.AUTOBET_COUNTER: {
-      return { ...state, autobetCounter: payload }
+      return { ...state, autobetStartBalance: payload > 0 ? state.balance : 0, autobetCounter: payload }
     }
     case ReducerAction.AUTOBET_ON_WIN_INPUT: {
       return { ...state, autobetOnWin: Utils.formatBet(payload) }
