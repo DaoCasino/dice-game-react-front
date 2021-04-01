@@ -4,4 +4,4 @@ export enum AutobetMode {
   DECREASE = 'AutobetMode.DECREASE',
 }
 
-export const AutobetCounts = [5, 10, 25, 50, 0]
+export const AutobetCounts = [5, 10, 25, 50, Number.MAX_SAFE_INTEGER]

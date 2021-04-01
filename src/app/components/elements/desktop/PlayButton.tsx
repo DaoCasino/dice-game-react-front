@@ -76,7 +76,7 @@ const PlayButton = (props): JSX.Element => {
               ? isAutobetRunning
                 ? tr('autobetStopButton') +
                   '     ' +
-                  (autobetCounter + 1).toString()
+                  (autobetCounter > 999 ? '∞' : (autobetCounter + 1).toString())
                 : tr('autobetStartButton')
               : isPlaying
               ? ''

@@ -31,7 +31,7 @@ const AutobetListItem = (props): JSX.Element => {
           x: width / 2,
           y: height / 2,
           anchor: { x: 0.5, y: 0.5 },
-          text: count ? count.toString() : '∞',
+          text: count.toString(),
           style: {
             fill: 0xffffff,
             fontFamily: 'Rajdhani-fnt',
@@ -46,10 +46,16 @@ const AutobetListItem = (props): JSX.Element => {
 
 const createListItem = (
   index: number,
-  count: number,
+  count: number | string,
   selected: boolean = false,
   interactive: boolean = true,
 ) => {
+  const initialCount = count
+
+  if (count === Number.MAX_SAFE_INTEGER) {
+    count = '∞'
+  }
+
   const width = count.toString().length * 7 + 30
   const height = 36
 
@@ -62,7 +68,7 @@ const createListItem = (
       selected={selected}
       interactive={interactive}
       buttonMode={interactive}
-      pointerdown={() => setAutobetCountAction(count)}
+      pointerdown={() => setAutobetCountAction(initialCount)}
     />
   )
 }
