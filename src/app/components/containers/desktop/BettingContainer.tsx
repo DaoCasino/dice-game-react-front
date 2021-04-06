@@ -15,6 +15,7 @@ import AutobetList from '../../elements/desktop/AutobetList'
 import {
   autobetStopAction,
   betDivideAction,
+  betInputAction,
   betMultiplyAction,
   playAction,
 } from '../../../state/reducers/ReducerAction'
@@ -29,9 +30,11 @@ class BettingContainer extends Component<any, any> {
       height,
       autobetOnOff,
       autobetCounter,
+      betMax,
       playAction,
       betDivideAction,
       betMultiplyAction,
+      betInputAction,
     } = this.props
 
     const isAutobetRunning = autobetOnOff && autobetCounter > -1
@@ -75,7 +78,7 @@ class BettingContainer extends Component<any, any> {
             y={height - margin - buttonHeight}
             width={(totalWidth * betMaxButtonWidthPercent) / 100 - margin}
             height={buttonHeight}
-            pointerdown={() => playAction()}
+            pointerdown={() => betInputAction(betMax)}
           />
         )}
         {autobetOnOff ? null : (
@@ -137,13 +140,15 @@ class BettingContainer extends Component<any, any> {
 }
 
 const mapState = state => {
-  const { autobetOnOff, autobetCounter } = state
+  const { autobetOnOff, autobetCounter, betMax } = state
   return {
     autobetOnOff,
     autobetCounter,
+    betMax,
     playAction,
     betDivideAction,
     betMultiplyAction,
+    betInputAction,
   }
 }
 
