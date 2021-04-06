@@ -4,7 +4,7 @@ import { IDice, IDiceInitResult, IDicePlayResult } from './IDice'
 const MIN_BET = 1
 const MAX_BET = 10000
 const MAX_PAYOUT = 990000
-const BALANCE = 100000000
+const BALANCE = 20
 
 const ALL_RANGE = 100.0 // total range of possible dice numbers
 const HOUSE_EDGE = 0.01 // casino's house edge

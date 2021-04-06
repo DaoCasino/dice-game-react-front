@@ -1,5 +1,12 @@
-import { playAction, ReducerAction, setAutobetCountAction, setAutobetCounterAction } from '../reducers/ReducerAction'
+import {
+  autobetStopAction,
+  playAction,
+  ReducerAction,
+  setAutobetCountAction,
+  setAutobetCounterAction,
+} from '../reducers/ReducerAction'
 import { AutobetCounts } from '../../types/AutobetTypes'
+import { App } from '../../App'
 
 let timeoutId = -1
 
@@ -19,13 +26,21 @@ export const AutobetMiddleware = store => next => action => {
     }
 
     case ReducerAction.PLAY_SUCCESS: {
-      const { autobetOnOff, autobetCounter } = state
+      const { autobetOnOff, autobetCounter, balance, bet, betMin } = state
 
       if (autobetOnOff) {
         const counter = autobetCounter - 1
 
         if (counter >= -1) {
-          setAutobetCounterAction(autobetCounter - 1)
+          if (balance < betMin || bet < balance) {
+            autobetStopAction()
+            App.instance.getGameAPI().emit('insufficient-balance', {})
+
+            break
+
+          } else {
+            setAutobetCounterAction(autobetCounter - 1)
+          }
         }
 
         if (counter >= 0) {

@@ -75,7 +75,7 @@ export const reducer = (state = DefaultState, action) => {
         ...state,
         bet: Math.min(
           state.betMax,
-          Math.max(state.betMin, payload),
+          Math.max(Math.min(state.balance, state.betMin), payload),
         ),
         profit: undefined,
         number: undefined,
@@ -84,7 +84,7 @@ export const reducer = (state = DefaultState, action) => {
     case ReducerAction.BET_PLUS: {
       return {
         ...state,
-        bet: Math.min(state.betMax, Utils.formatBet(state.bet + 1)),
+        bet: Math.min(Math.min(state.balance, state.betMax), Utils.formatBet(state.bet + 1)),
         profit: undefined,
         number: undefined,
       }
@@ -100,7 +100,7 @@ export const reducer = (state = DefaultState, action) => {
     case ReducerAction.BET_MULTIPLY: {
       return {
         ...state,
-        bet: Math.min(state.betMax, Utils.formatBet(state.bet * 2)),
+        bet: Math.min(Math.min(state.balance, state.betMax), Utils.formatBet(state.bet * 2)),
         profit: undefined,
         number: undefined,
       }
