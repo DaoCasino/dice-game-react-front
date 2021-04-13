@@ -46,8 +46,11 @@ export const playAction = () => {
 
     gameAPI
       .play(bet, chance)
-      .then(result => {
+      .then(async result => {
+        const balance = await gameAPI.getBalance()
+
         playSuccessAction({
+          balance: balance,
           profit: result.profit,
           number: result.randomNumber,
         })

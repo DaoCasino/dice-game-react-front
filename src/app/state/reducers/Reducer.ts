@@ -15,7 +15,7 @@ export const reducer = (state = DefaultState, action) => {
       }
     }
     case ReducerAction.PLAY_SUCCESS: {
-      const { number, profit } = payload
+      const { number, profit, balance } = payload
 
       state.rolls.push({
         number: number,
@@ -27,7 +27,7 @@ export const reducer = (state = DefaultState, action) => {
         isPlaying: false,
         profit: profit,
         number: number,
-        balance: state.balance + profit,
+        balance: balance,
       }
     }
     case ReducerAction.PLAY_ERROR: {
