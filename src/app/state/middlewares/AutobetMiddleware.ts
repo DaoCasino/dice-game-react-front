@@ -34,9 +34,6 @@ export const AutobetMiddleware = store => next => action => {
         if (counter >= -1) {
           if (balance < betMin || bet < balance) {
             autobetStopAction()
-            App.instance.getGameAPI().emit('insufficient-balance', {})
-
-            break
 
           } else {
             setAutobetCounterAction(autobetCounter - 1)

@@ -1,6 +1,7 @@
 import { ReducerAction } from './ReducerAction'
 import { DefaultState } from '../DefaultState'
 import { Utils } from '@daocasino/dc-react-gamengine'
+import { App } from '../../App'
 
 export const reducer = (state = DefaultState, action) => {
   const payload = action.payload
@@ -15,7 +16,11 @@ export const reducer = (state = DefaultState, action) => {
       }
     }
     case ReducerAction.PLAY_SUCCESS: {
-      const { number, profit, balance } = payload
+      const { number, profit, balance, betMin } = payload
+
+      if (balance < betMin) {
+        App.instance.getGameAPI().emit('insufficient-balance', {})
+      }
 
       state.rolls.push({
         number: number,
