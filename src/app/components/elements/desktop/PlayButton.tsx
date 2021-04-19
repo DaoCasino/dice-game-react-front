@@ -13,14 +13,15 @@ import {
 import { TweenMax } from 'gsap'
 
 const PlayButton = (props): JSX.Element => {
-  const { isPlaying, autobetOnOff, autobetCounter } = props
+  const { isPlaying, autobetOnOff, autobetCounter, balance, bet, betMin } = props
 
   const isAutobetRunning = autobetOnOff && autobetCounter > -1
+  const isBetEnough = balance >= bet && balance >= betMin
   const interactive = autobetOnOff
     ? isAutobetRunning
       ? true
-      : !isPlaying
-    : !isPlaying
+      : !isPlaying && isBetEnough
+    : !isPlaying && isBetEnough
 
   const [spriteProps, setSpriteProps] = useState({ rotation: 0 })
   const [tween, setTween] = useState(null)
@@ -33,12 +34,12 @@ const PlayButton = (props): JSX.Element => {
         TweenMax.to(spritePropsTemp, 0.5, {
           rotation: 360,
           repeat: 20,
-          onUpdate: function () {
+          onUpdate: function() {
             setSpriteProps({
               rotation: Utils.remap(this.progress(), 0, 1, 0, 360),
             })
           },
-        })
+        }),
       )
     } else {
       if (tween) {
@@ -74,13 +75,13 @@ const PlayButton = (props): JSX.Element => {
           text: tr(
             autobetOnOff
               ? isAutobetRunning
-                ? tr('autobetStopButton') +
-                  '     ' +
-                  (autobetCounter > 999 ? '∞' : (autobetCounter + 1).toString())
-                : tr('autobetStartButton')
+              ? tr('autobetStopButton') +
+              '     ' +
+              (autobetCounter > 999 ? '∞' : (autobetCounter + 1).toString())
+              : tr('autobetStartButton')
               : isPlaying
               ? ''
-              : tr('spinButton')
+              : tr('spinButton'),
           ),
           style: {
             fill: 0xffffff,
@@ -104,12 +105,15 @@ const PlayButton = (props): JSX.Element => {
 }
 
 const mapState = state => {
-  const { isPlaying, autobetOnOff, autobetCounter } = state
+  const { isPlaying, autobetOnOff, autobetCounter, balance, bet, betMin } = state
 
   return {
     isPlaying,
     autobetOnOff,
     autobetCounter,
+    balance,
+    bet,
+    betMin,
   }
 }
 
