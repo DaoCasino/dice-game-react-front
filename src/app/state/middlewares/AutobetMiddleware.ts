@@ -32,7 +32,7 @@ export const AutobetMiddleware = store => next => action => {
         const counter = autobetCounter - 1
 
         if (counter >= -1) {
-          if (balance < betMin || bet < balance) {
+          if (balance < betMin || balance < bet) {
             autobetStopAction()
 
           } else {
