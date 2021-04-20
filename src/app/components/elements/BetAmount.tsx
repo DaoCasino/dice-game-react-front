@@ -29,7 +29,7 @@ const BetAmount = (props): JSX.Element => {
         height={props.height}
         min={betMin}
         max={Math.min(balance, betMax)}
-        value={value}
+        value={value % 2 > 0 ? value.toFixed(4) : value}
         disabled={isMobile ? true : isPlaying}
         onBlur={value => betInputAction(value)}
       />

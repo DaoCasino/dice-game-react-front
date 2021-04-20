@@ -7,9 +7,8 @@ export const AutobetChangeMiddleware = store => next => action => {
 
   switch (action.type) {
     case ReducerAction.PLAY_SUCCESS: {
-      const { profit } = payload
+      const { balance, profit } = payload
       const {
-        balance,
         bet,
         betMin,
         betMax,

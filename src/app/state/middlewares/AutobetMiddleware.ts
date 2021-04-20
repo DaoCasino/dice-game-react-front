@@ -6,7 +6,6 @@ import {
   setAutobetCounterAction,
 } from '../reducers/ReducerAction'
 import { AutobetCounts } from '../../types/AutobetTypes'
-import { App } from '../../App'
 
 let timeoutId = -1
 
@@ -22,11 +21,14 @@ export const AutobetMiddleware = store => next => action => {
         setAutobetCounterAction(autobetCount - 1)
       }
 
+      console.log('PLAY')
+
       break
     }
 
     case ReducerAction.PLAY_SUCCESS: {
-      const { autobetOnOff, autobetCounter, balance, bet, betMin } = state
+      const { balance } = payload
+      const { autobetOnOff, autobetCounter, bet, betMin } = state
 
       if (autobetOnOff) {
         const counter = autobetCounter - 1
@@ -34,6 +36,8 @@ export const AutobetMiddleware = store => next => action => {
         if (counter >= -1) {
           if (balance < betMin || balance < bet) {
             autobetStopAction()
+
+            break
 
           } else {
             setAutobetCounterAction(autobetCounter - 1)

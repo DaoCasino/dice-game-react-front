@@ -1,4 +1,4 @@
-import { autobetStopAction, ReducerAction } from './ReducerAction'
+import { ReducerAction } from './ReducerAction'
 import { DefaultState } from '../DefaultState'
 import { Utils } from '@daocasino/dc-react-gamengine'
 import { App } from '../../App'
@@ -19,8 +19,12 @@ export const reducer = (state = DefaultState, action) => {
       const { bet, betMin } = state
       const { number, profit, balance } = payload
 
+      let newBet = bet
+
       if (balance < Math.min(bet, betMin)) {
         App.instance.getGameAPI().emit('insufficient-balance', {})
+
+        newBet = Math.min(balance, betMin)
       }
 
       state.rolls.push({
@@ -30,6 +34,7 @@ export const reducer = (state = DefaultState, action) => {
 
       return {
         ...state,
+        bet: newBet,
         isPlaying: false,
         profit: profit,
         number: number,
@@ -126,6 +131,7 @@ export const reducer = (state = DefaultState, action) => {
       return {
         ...state,
         autobetCounter: -1,
+        autobetCount: 0,
         autobetStartBalance: 0,
         profit: undefined,
         number: undefined,

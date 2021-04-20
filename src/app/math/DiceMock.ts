@@ -4,7 +4,7 @@ import { IDice, IDiceInitResult, IDicePlayResult } from './IDice'
 const MIN_BET = 1
 const MAX_BET = 10000
 const MAX_PAYOUT = 990000
-const BALANCE = 20
+const BALANCE = 100000
 
 const ALL_RANGE = 100.0 // total range of possible dice numbers
 const HOUSE_EDGE = 0.01 // casino's house edge
@@ -57,6 +57,8 @@ const delay = (min: number, max: number): Promise<void> => {
 }
 
 export class DiceMock implements IDice {
+  public balance: number = BALANCE
+
   public async init(): Promise<IDiceInitResult> {
     return {
       connected: true,
@@ -79,6 +81,8 @@ export class DiceMock implements IDice {
 
     await delay(1200, 2000) // simulate network latency for realism
 
+    this.balance += isWin ? profit : -bet;
+
     return {
       randomNumber,
       profit: isWin ? profit : profit * -1,
@@ -92,6 +96,6 @@ export class DiceMock implements IDice {
   }
 
   public getBalance(): Promise<number> {
-    return Promise.resolve(BALANCE)
+    return Promise.resolve(this.balance)
   }
 }
