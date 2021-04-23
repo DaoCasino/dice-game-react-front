@@ -21,7 +21,7 @@ export const reducer = (state = DefaultState, action) => {
 
       let newBet = bet
 
-      if (balance < Math.min(bet, betMin)) {
+      if (balance < betMin || balance < bet) {
         App.instance.getGameAPI().emit('insufficient-balance', {})
 
         newBet = Math.min(balance, betMin)
